@@ -126,6 +126,7 @@ end
 #deploy
 activate :deploy do |deploy|
   deploy.method = :git
+  deploy.branch = :master
 end
 
 # activate :relative_assets
