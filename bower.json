@@ -1,0 +1,22 @@
+{
+  "name": "uzimith.github.io",
+  "version": "0.0.1",
+  "homepage": "https://github.com/uzimith",
+  "authors": [
+    "uzimith <uzimith.x9@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "source/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.2",
+    "disqus-thread": "~0.0.1"
+  }
+}

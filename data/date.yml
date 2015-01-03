@@ -1,0 +1,3 @@
+day: "%y-%m-%d"
+month: "%Y-%m"
+year: "%Y"

@@ -1,0 +1,17 @@
+---
+title: Welcome to Middleman
+pageable: true
+per_page: 3
+---
+- if paginate && num_pages > 1
+  p #{page_number} / #{num_pages}
+  - if prev_page
+    p = link_to '&lt;', prev_page
+- page_articles.each_with_index do |article, i|
+  h2
+    == link_to article.title, article
+    span = article.date.strftime(data.date.month)
+    - article.body
+- if paginate
+  - if next_page
+    = link_to '&gt;', next_page
