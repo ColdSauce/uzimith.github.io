@@ -10,13 +10,15 @@ gem "middleman-disqus"
 # For feed.xml.builder
 gem "builder", "~> 3.0"
 
+gem 'font-awesome-sass', '~> 4.2.0'
+gem 'nokogiri'
+
 gem "redcarpet", "~> 3.0.0"
 gem 'middleman-rouge'
 
 gem "slim"
 gem "compass"
 gem "compass-normalize"
-gem "neat"
 gem "breakpoint"
 
 gem 'guard-bundler'

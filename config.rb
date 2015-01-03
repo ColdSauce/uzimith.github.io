@@ -1,27 +1,43 @@
 ###
+# Site Settings
+###
+
+set :site_url, 'https://uzimith.github.io'
+set :site_title, 'uzimith.github.io'
+set :site_description, '日記 関心:Ruby/Vim/Web'
+set :site_author, 'uzimith'
+set :site_author_profile, '情報系学生'
+set :site_author_image, 'profile.png'
+set :reverse_title, false
+set :social_links,
+    twitter: 'https://twitter.com/uzimith',
+    facebook: nil,
+    github: 'https://github.com/uzimith',
+    linkedin: nil
+set :google_analytics_account, 'UA-58170674-1'
+###
 # Blog settings
 ###
 
 Time.zone = "Tokyo"
 
 activate :blog do |blog|
-  blog.permalink = "{year}/{month}/{day}/{title}.html"
-  blog.sources = "post/{year}-{month}-{day}-{title}.html"
-  blog.taglink = "tags/{tag}.html"
-  blog.layout = "layout"
-  blog.summary_separator = /(READMORE)/
+  # This will add a prefix to all links, template references and source paths
+  # blog.prefix = "blog"
+
+  # Permalink format
+  blog.permalink = '{year}/{month}/{day}/{title}.html'
+  # Matcher for blog source files
+  blog.sources = 'posts/{year}-{month}-{day}-{title}.html'
   blog.summary_length = 250
-  blog.year_link = "{year}.html"
-  blog.month_link = "{year}/{month}.html"
-  blog.day_link = "{year}/{month}/{day}.html"
-  blog.default_extension = ".markdown"
+  blog.default_extension = '.md'
+  blog.tag_template = 'tag.html'
+  blog.calendar_template = 'calendar.html'
 
-  blog.tag_template = "tag.html"
-  blog.calendar_template = "calendar.html"
-
+  # Enable pagination
   blog.paginate = true
   blog.per_page = 10
-  blog.page_link = "page/{num}"
+  blog.page_link = 'page/{num}'
 end
 
 
@@ -36,6 +52,7 @@ compass_config do |config|
 end
 require 'compass-normalize'
 require 'breakpoint'
+require 'font-awesome-sass'
 
 ###
 # Sprockets
@@ -49,9 +66,11 @@ sprockets.append_path 'components'
 
 with_layout :layout do
   page "/*", :layout => "layout"
-  page "/post/*", :layout => "post"
+  page "/posts/*", :layout => "post"
   page "/elements/*", :layout => false
-  page "/feed.xml", layout: false
+  page '/feed.xml', layout: false
+  page '/sitemap.xml', layout: false
+  page '/robots.txt', layout: false
 end
 
 
@@ -92,11 +111,13 @@ activate :google_analytics do |ga|
   ga.tracking_id = 'UA-58170674-1'
 end
 
-set :css_dir, 'style'
-set :js_dir, 'js'
+set :css_dir, 'stylesheets'
+set :js_dir, 'javascripts'
 set :images_dir, 'images'
 set :slim, { pretty: true, sort_attrs: false, format: :html }
 Tilt::CoffeeScriptTemplate.default_bare = true
+
+activate :directory_indexes
 
 activate :disqus do |d|
   d.shortname = 'uzimith'

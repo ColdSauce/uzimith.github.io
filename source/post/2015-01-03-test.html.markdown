@@ -1,7 +1,0 @@
----
-title: test
-date: 2015-01-03 21:37 JST
-tags:
----
-
-test

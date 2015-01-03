@@ -1,0 +1,10 @@
+.footer-wrapper
+  .social-wrapper
+    ul
+      - social_links.each do |name, url|
+        - if url
+          li
+            a href="#{url}"
+              i class=['fa', "fa-#{name}"]
+  .copyright
+    i.fa.fa-copyright #{Time.now.year} #{link_to "#{site_title}", "/"} #{site_author}
