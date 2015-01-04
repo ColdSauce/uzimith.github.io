@@ -1,5 +1,5 @@
 def format_date(date)
-  date.strftime('%B %d, %Y')
+  date.strftime('%Y-%m-%d')
 end
 
 def site_title_logo
@@ -49,4 +49,13 @@ def analytics_account
   google_analytics_account
   rescue NameError
     nil
+end
+
+def markdown(content)
+  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+  markdown.render(content)
+end
+
+def gist(url)
+  "<script src='#{url}.js'></script>"
 end

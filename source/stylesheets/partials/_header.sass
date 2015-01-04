@@ -1,12 +1,8 @@
 header
-  height: 320px
   margin: 0 auto
   +breakpoint($large-screen)
     background-position: center 40px
     background-size: contain
-
-  +breakpoint($large-screen)
-    height: 400px
 
   #top-menu
     background-color: $blind-gray
@@ -59,9 +55,9 @@ header
           font-size: 1.8rem
   .logo
     margin: 0 auto
-    padding: 260px 20px 0 160px
+    padding: 60px 20px 0 160px
     +breakpoint($large-screen)
-      padding: 250px 20px 0 20px
+      padding: 100px 20px 0 20px
 
     $site-title-logo-image: false
     @if $site-title-logo-image

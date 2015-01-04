@@ -6,7 +6,13 @@ set :site_url, 'https://uzimith.github.io'
 set :site_title, 'uzimith.github.io'
 set :site_description, '日記 関心:Ruby/Vim/Web'
 set :site_author, 'uzimith'
-set :site_author_profile, '情報系学生'
+set :site_author_profile, '''
+情報系学生
+
+信号処理の研究室で脳波測ってます。
+
+関心 : Vim / Ruby / Web
+'''
 set :site_author_image, 'profile.png'
 set :reverse_title, false
 set :social_links,
@@ -15,6 +21,7 @@ set :social_links,
     github: 'https://github.com/uzimith',
     linkedin: nil
 set :google_analytics_account, 'UA-58170674-1'
+
 ###
 # Blog settings
 ###
@@ -71,27 +78,13 @@ with_layout :layout do
   page '/feed.xml', layout: false
   page '/sitemap.xml', layout: false
   page '/robots.txt', layout: false
+  page '/entries.json', layout: false
 end
 
 
 ###
-# Helpers
+# Etc
 ###
-
-helpers do
-  def lang(path)
-    I18n.locale.to_s + "/" + path
-  end
-
-  def url(path)
-    current_page.url + path
-  end
-
-  def html_import_tag(path)
-    path = asset_path(:html, path)
-    content_tag :link, "", rel: "import", href: path
-  end
-end
 
 activate :automatic_image_sizes
 activate :syntax, :line_numbers => true
@@ -105,10 +98,6 @@ set :markdown, tables: true, autolink: true, gh_blockcode: true, fenced_code_blo
 activate :rouge_syntax
 activate :autoprefixer do |config|
   config.browsers = ['last 2 versions', 'Explorer >= 9']
-end
-
-activate :google_analytics do |ga|
-  ga.tracking_id = 'UA-58170674-1'
 end
 
 set :css_dir, 'stylesheets'

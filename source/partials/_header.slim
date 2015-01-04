@@ -2,13 +2,12 @@
   .top-menu-wrapper
     .top-menu-list
       ul
-        li: a href="/" Home
-        li: a href="/archives/" Archives
-        li: a href="/tags/" Tags
-        li: a href="/by-year/" By Year
+        li = link_to "Home", "/index.html"
+        li = link_to "Archives", "/archives.html"
+        li = link_to "Tags", "/tags.html"
+        li = link_to "by Year", "/by-year.html"
     .feed
-      a href="/feed.xml"
-        i.fa.fa-rss-square
+      a href="/feed.xml": i.fa.fa-rss-square
 h1.logo
   a href="/" title="#{site_title}"
     - if site_title_logo

@@ -9,11 +9,22 @@ footer
     width: 100%
     +breakpoint($large-screen)
       width: $content-width
-
     a
       color: $footer-text-color
       &:hover
         color: $whity-light-gray
+    .social-wrapper
+      margin-top: 2.0rem
+      ul
+        +horizontal-list
+        li
+          list-style-type: none
+          font-size: 3.2rem
+          margin-right: .5rem
+          a
+            color: $blur-white
+            &:hover
+              color: $link-color
     .copyright
       text-align: center
       padding-top: 20px
@@ -29,15 +40,3 @@ footer
           margin-top: -40px
           margin-right: 40px
           +box-shadow($blind-gray 0px -1px 0 15px)
-  .social-wrapper
-    margin-top: 2.0rem
-    ul
-      +horizontal-list
-      li
-        list-style-type: none
-        font-size: 3.2rem
-        margin-right: .5rem
-        a
-          color: $blur-white
-          &:hover
-            color: $link-color
