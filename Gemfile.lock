@@ -58,10 +58,6 @@ GEM
       guard (~> 2.2)
       guard-compat (~> 1.1)
     guard-compat (1.2.0)
-    guard-middleman (0.5.0)
-      guard (>= 1.4.0)
-      guard-compat (~> 1.1)
-      middleman (>= 3.0.0)
     haml (4.0.6)
       tilt
     hike (1.2.3)
@@ -156,6 +152,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rake (10.1.0)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -201,7 +198,6 @@ DEPENDENCIES
   compass-normalize
   font-awesome-sass (~> 4.2.0)
   guard-bundler
-  guard-middleman
   middleman (~> 3.3.7)
   middleman-autoprefixer
   middleman-blog
@@ -211,6 +207,7 @@ DEPENDENCIES
   middleman-rouge
   middleman-syntax
   nokogiri
+  rake
   redcarpet (~> 3.0.0)
   slim
   tzinfo-data

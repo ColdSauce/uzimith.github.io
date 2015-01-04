@@ -34,12 +34,3 @@ guard :bundler do
   # Assume files are symlinked from somewhere
   files.each { |file| watch(helper.real_path(file)) }
 end
-
-guard 'middleman' do
-  watch(%r{^config.rb})
-  watch(%r{^data/.*})
-  watch(%r{^source/.*})
-
-  watch(%r{^views/.*})
-  watch(%r{^public/.*})
-end
