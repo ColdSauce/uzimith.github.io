@@ -9,7 +9,7 @@ html lang="ja"
     = feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed"
     = stylesheet_link_tag "all"
     = favicon_tag '/images/favicon.png'
-    = partial "partials/analytics"
+    == partial "partials/analytics"
   body
     header
       = partial "partials/header"

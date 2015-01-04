@@ -112,6 +112,11 @@ activate :disqus do |d|
   d.shortname = 'uzimith'
 end
 
+activate :react
+after_configuration do
+  sprockets.append_path File.dirname(::React::Source.bundled_path_for('react.js'))
+end
+
 #deploy
 activate :deploy do |deploy|
   deploy.method = :git
