@@ -14,6 +14,7 @@ gem 'font-awesome-sass', '~> 4.2.0'
 gem 'nokogiri'
 
 gem "redcarpet", "~> 3.0.0"
+gem 'middleman-syntax'
 gem 'middleman-rouge'
 
 gem "slim"

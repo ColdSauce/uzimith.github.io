@@ -128,6 +128,9 @@ GEM
       sprockets (~> 2.12.1)
       sprockets-helpers (~> 1.1.0)
       sprockets-sass (~> 1.2.0)
+    middleman-syntax (2.0.0)
+      middleman-core (~> 3.2)
+      rouge (~> 1.0)
     mini_portile (0.6.2)
     minitest (5.5.0)
     multi_json (1.10.1)
@@ -206,6 +209,7 @@ DEPENDENCIES
   middleman-disqus
   middleman-livereload (~> 3.1.0)
   middleman-rouge
+  middleman-syntax
   nokogiri
   redcarpet (~> 3.0.0)
   slim
