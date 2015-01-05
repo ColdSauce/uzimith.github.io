@@ -112,7 +112,7 @@ activate :disqus do |d|
   d.shortname = 'uzimith'
 end
 
-activate :react
+activate :react, harmony: true
 after_configuration do
   sprockets.append_path File.dirname(::React::Source.bundled_path_for('react.js'))
 end

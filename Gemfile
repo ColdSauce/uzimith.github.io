@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 gem "middleman", "~>3.3.7"
+gem "middleman-cli"
 gem "middleman-blog"
 gem "middleman-deploy"
 gem 'middleman-autoprefixer'

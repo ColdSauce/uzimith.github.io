@@ -32,3 +32,4 @@ build/
 .rvmrc
 /source/components
 node_modules
+bin
