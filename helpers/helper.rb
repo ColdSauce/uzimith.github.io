@@ -59,3 +59,8 @@ end
 def gist(url)
   "<script src='#{url}.js'></script>"
 end
+
+def strip_tags(text)
+    doc = Nokogiri::HTML::DocumentFragment.parse text
+    doc.inner_text
+end

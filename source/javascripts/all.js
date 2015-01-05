@@ -1,2 +1,2 @@
 //= require react
-//= require_tree .
+//= require _search
