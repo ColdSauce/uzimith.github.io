@@ -1,1 +1,5 @@
-<%= Rouge::Themes::Monokai.render(:scope => 'code .highlight') %>
+.highlight {
+  border: 1px solid $whity-light-gray;
+  margin: 3.0rem auto;
+}
+<%= Rouge::Themes::Monokai.render(:scope => '.highlight') %>

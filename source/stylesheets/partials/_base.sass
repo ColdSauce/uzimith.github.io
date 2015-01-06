@@ -78,19 +78,19 @@ a
 
 pre
   overflow: scroll
-  background: $code-gray
   font-family: $monospace
   font-size: 1.3rem
   +breakpoint($large-screen)
     font-size: 1.4rem
-
   line-height: 1.5
-  margin: 3.0rem auto
-  padding: 1.4rem
-  border: 1px solid $whity-light-gray
+  padding: 1.3em
 
 code
   font-family: $monospace
+\:not(.highlight) > code
+  background-color: rgba(0,0,0, 0.04)
+  border-radius: 3px
+  padding: 0.2em
 
 strong
   font-weight: bold
