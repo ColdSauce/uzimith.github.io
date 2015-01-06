@@ -11,7 +11,7 @@ def deploy
   system "bundle exec middleman deploy"
 end
 
-task :publish do
+task :deploy do
   commit
   deploy
 end

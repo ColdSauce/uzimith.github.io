@@ -87,7 +87,7 @@ end
 ###
 
 activate :automatic_image_sizes
-activate :syntax, :line_numbers => true
+activate :syntax
 
 configure :development do
   activate :livereload
@@ -95,7 +95,6 @@ end
 
 set :markdown_engine, :redcarpet
 set :markdown, tables: true, autolink: true, gh_blockcode: true, fenced_code_blocks: true, with_toc_data: true, smartypants: true, fenced_code_blocks: true
-activate :rouge_syntax
 activate :autoprefixer do |config|
   config.browsers = ['last 2 versions', 'Explorer >= 9']
 end
