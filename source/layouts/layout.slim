@@ -4,7 +4,9 @@ html lang="ja"
     meta[charset="utf-8"]
     meta[http-equiv="X-UA-Compatible" content="IE=edge;chrome=1"]
     meta[name="viewport" content="initial-scale=1.0, user-scalable=no"]
-    title = format_title
+    title
+      | #{"#{current_page.data.title} | " if current_page.data.title}
+      | #{site_title}
     meta[description="#{page_description}"]
     = feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed"
     = stylesheet_link_tag "all"

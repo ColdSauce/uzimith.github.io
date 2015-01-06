@@ -12,27 +12,6 @@ def title(title)
   @page_title = title
 end
 
-def format_title
-  separator = ' | '
-  if reverse_title
-    if current_article
-      current_article.title + separator + site_title
-    elsif @page_title
-      @page_title + separator + site_title
-    else
-      site_title
-    end
-  else
-    if current_article
-      site_title + separator + current_article.title
-    elsif @page_title
-      site_title + separator + @page_title
-    else
-      site_title
-    end
-  end
-end
-
 def page_description
   if current_article && current_article.summary(100)
     description = current_article.summary
