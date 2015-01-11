@@ -123,13 +123,12 @@ activate :deploy do |deploy|
   deploy.build_before = true
 end
 
-# activate :relative_assets
+activate :relative_assets
 
 configure :build do
   set :slim, { pretty: false, sort_attrs: false, format: :html }
   activate :minify_css
   activate :minify_javascript
   activate :asset_hash
-  activate :relative_assets
   # set :http_prefix, "/Content/images/"
 end
