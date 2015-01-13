@@ -1,3 +1,7 @@
+var React = require('react');
+var _ = require('lodash');
+var oboe = require('oboe');
+
 RegExp.escape = function( value ) {
      return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
 }
@@ -39,12 +43,9 @@ var Article = React.createClass({
 
 var SearchBox = React.createClass({
   load() {
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      success: data => this.setState({data: data}),
-      error: (xhr, status, err) => console.error(this.props.url, status, err.toString())
-    });
+    oboe(this.props.url)
+      .done( data => this.setState({data: data}) )
+      .fail( (error) => console.error(error) )
   },
   getInitialState() {
     return {

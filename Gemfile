@@ -7,7 +7,6 @@ gem "middleman-blog"
 gem "middleman-deploy"
 gem 'middleman-autoprefixer'
 gem "middleman-disqus"
-gem "middleman-react"
 # For feed.xml.builder
 gem "builder", "~> 3.0"
 
