@@ -33,3 +33,5 @@ build/
 /source/components
 node_modules
 bin
+/source/javascripts/*
+!/source/javascripts/_*
