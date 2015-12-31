@@ -7,7 +7,6 @@ header
   #top-menu
     background-color: $blind-gray
     width: 100%
-    height: $top-menu-height
     position: fixed
     top: 0
     z-index: 100
@@ -20,37 +19,49 @@ header
       margin: 0 auto
       padding-top: .9rem
       color: $top-menu-text-color
+      transition: 0.3s
       a
         color: $top-menu-text-color
         &:hover
           color: $whity-light-gray
-      .top-menu-list
+      .top-menu-toggle
+        display: none
+      .top-menu-toggle-button
         float: left
-        width: 80%
-        margin-left: 15px
-        +breakpoint($large-screen)
-          margin-left: 30px
-
-        ul
-          +horizontal-list
-          li
-            font-size: 1.2rem
-            margin: 0
-            &:after
-              content: "\2219"
-              margin-left: 10px
-              margin-right: 3px
-            &:last-child:after
-              content: ""
+        margin-left: 20px
+        line-height: 3rem
+        +breakpoint($mobile-screen)
+          display: none
+      .top-menu-toggle:checked ~ .top-menu-list
+        height: 16rem
+      .top-menu-list
+        margin-left: 30px
+        overflow: hidden
+        height: 0
+        transition: height 0.3s
+        +breakpoint($mobile-screen)
+          float: left
+          width: 80%
+          height: auto
+          padding-bottom: 10px
+          ul
+            +horizontal-list
+            li
+              font-size: 1.6rem
+              margin: 0
+              &:after
+                content: "\2219"
+                margin-left: 10px
+                margin-right: 3px
+              &:last-child:after
+                content: ""
       .feed
         float: right
-        width: 10%
-        text-align: left
+        text-align: right
+        margin-right: 20px
         +breakpoint($large-screen)
           margin-right: 60px
-          text-align: right
-
-        line-height: 2.2rem
+        line-height: 3rem
         i
           font-size: 1.8rem
   .logo
