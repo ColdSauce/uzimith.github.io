@@ -116,6 +116,9 @@ activate :deploy do |deploy|
   deploy.method = :git
   deploy.branch = :master
   deploy.build_before = true
+  if ENV['GITHUB_TOKEN']
+    deploy.remote = "https://#{ENV['GITHUB_TOKEN']}@github.com/uzimith/uzimith.github.io.git"
+  end
 end
 
 activate :relative_assets

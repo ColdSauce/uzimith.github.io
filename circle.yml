@@ -1,0 +1,31 @@
+general:
+  timezone: Asia/Tokyo
+  artifacts:
+    - docker
+  branches:
+    ignore:
+      - gh-pages
+
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t middleman .
+
+test:
+  override:
+    - echo 'No tests'
+
+compile:
+  override:
+    - echo 'Do not run bundle exec middleman build!'
+
+deployment:
+  master:
+    branch: master
+    tag: /release-.*/
+    commands:
+      - docker run -e GITHUB_TOKEN=$GITHUB_TOKEN -t middleman
