@@ -27,4 +27,4 @@ deployment:
     branch: master
     tag: /release-.*/
     commands:
-      - docker run -e GITHUB_TOKEN=$GITHUB_TOKEN -t middleman
+      - ./scripts/deploy.sh
