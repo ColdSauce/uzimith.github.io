@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1"><meta name="viewport" content="initial-scale=1.0, user-scalable=no"><title>Riot.jsでFluxのデモ実装した。 | uzimith.github.io</title><meta description="フロントエンド開発でコンポーネント指向で書きたいのは間違いないんですが、 Reactは簡単な事をするのにも大量のコードを必要として手軽に書くのには辛いライブラリだと思っていたところ、 Qiitaでよさ気なライブラリが話題になってました。   Riot.js 2.0 を触ってみた — まだReactで消耗しているの? - Qiita Riotjsのいいところ - Qiita   もともとfluxのデモコードがまったく理解できなくて悩んでいたところだったので2つのデモを実装しました。   Todo "><link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" /><link href="../../../../stylesheets/all-b12c8b8a.css" rel="stylesheet" type="text/css" /><link href="../../../../images/favicon-6c3f3d04.png" rel="icon" type="image/png" /><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', "UA-58170674-1", 'auto');ga('send', 'pageview');</script></head><body><header><div id="top-menu"><div class="top-menu-wrapper"><input id="menu-toggle" class="top-menu-toggle" type="checkbox"><label class="top-menu-toggle-button fa fa-list" for="menu-toggle"></label><div class="top-menu-list"><ul><li><a href="/">Home</a></li><li><a href="/archives/">Archives</a></li><li><a href="/tags/">Tags</a></li><li><a href="/by-year/">by Year</a></li><li><a href="/search/">Search</a></li></ul></div><div class="feed"><a href="/feed.xml"><i class="fa fa-rss-square"></i></a></div></div></div><h1 class="logo"><a href="/" title="uzimith.github.io"><span class="logo-text">uzimith.github.io</span></a></h1></header><main><article><h1 class="article-title">Riot.jsでFluxのデモ実装した。</h1><div class="posted-date-wrapper"><i class="fa fa-clock-o"><span class="posted-date">2015-02-11</span></i></div><div class="tag-labels"><a href="/tags/riotjs/"><small class="tag-label">riotjs</small></a><a href="/tags/flux/"><small class="tag-label">flux</small></a></div><hr class="article-header-separator"><p>フロントエンド開発でコンポーネント指向で書きたいのは間違いないんですが、
+Reactは簡単な事をするのにも大量のコードを必要として手軽に書くのには辛いライブラリだと思っていたところ、
+Qiitaで<a href="https://muut.com/riotjs/">よさ気なライブラリ</a>が話題になってました。</p>
+
+<ul>
+<li><a href="http://qiita.com/cognitom/items/fb1295f3f93911e9e92d">Riot.js 2.0 を触ってみた — まだReactで消耗しているの? - Qiita</a></li>
+<li><a href="http://qiita.com/jgs/items/afa7bca6d4d88812b7e4">Riotjsのいいところ - Qiita</a></li>
+</ul>
+
+<p>もともと<a href="https://github.com/facebook/flux">flux</a>のデモコードがまったく理解できなくて悩んでいたところだったので2つのデモを実装しました。</p>
+
+<ul>
+<li><a href="http://uzimith.github.io/flux-practice/todo/">Todo</a></li>
+<li><a href="http://uzimith.github.io/flux-practice/chat/">Chat</a></li>
+</ul>
+
+<p><a href="https://github.com/uzimith/flux-practice">https://github.com/uzimith/flux-practice</a></p>
+
+<h2 id="toc_0">Fluxについて</h2>
+
+<p>fluxのコンセプトについては<a href="http://facebook.github.io/flux/docs/overview.html">公式サイト</a>読んでても全く理解できなかったので、下のサイトを見て覚えました。</p>
+
+<ul>
+<li><a href="http://saneyukis.hatenablog.com/entry/2014/09/26/174750">Fluxアーキテクチャの覚え書きを書いた - snyk_s log</a></li>
+<li><a href="http://saneyukis.hatenablog.com/entry/2014/12/24/014421">Fluxとはなんだったのか + misc at 2014 - snyk_s log</a></li>
+<li><a href="http://jonathancreamer.com/what-the-flux/">What the flux?</a></li>
+</ul>
+
+<p>Actionが(ユーザーの)動作、DispatcherがObserver、StoreがModelでAction -> Dispatcher -> Store -> Viewの一方通行でデータが動くと思えば大体合ってる気がします。</p>
+
+<p>しかし、いまだにWEB APIがActionCreaterから呼び出される利点が未だに分かってないです。Storeで隠蔽してもいいと思うんですが。
+複数のStoreを叩く必要があるAPI呼び出しを書く際に困らない、のかなといったところ。</p>
+<div class="comment"><div id="disqus_thread"></div>
+<script type="text/javascript">
+//<![CDATA[
+                  var disqus_shortname = 'uzimith';
+          
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+//]]>
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div><div class="zenabck"><!-- X:S ZenBackWidget --><div id="zenback-widget-loader"></div><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var r=Math.ceil((new Date()*1)*Math.random());var j=d.createElement("script");j.id=i;j.async=true;j.src="//w.zenback.jp/v1/?base_uri=http%3A//uzimith.github.io/&nsid=128038336286710331%3A%3A128038351319082117&rand="+r;d.body.appendChild(j);}}(document,"zenback-widget-js");</script><!-- X:E ZenBackWidget --></div></article></main><footer><div class="footer-wrapper"><div class="list" layout horizontal center-justified><div class="profile" flex><h2>Author</h2><h3>uzimith</h3><p>情報系学生</p>
+
+<p>信号処理の研究室で脳波測ってます。</p>
+
+<p>関心 : Vim / Ruby / Web</p>
+</div><div class="social-wrapper" flex><ul><li><a href="https://twitter.com/uzimith"><i class="fa fa-twitter"></i></a></li><li><a href="https://github.com/uzimith"><i class="fa fa-github"></i></a></li></ul></div></div><div class="copyright"><i class="fa fa-copyright">2016 <a href="/">uzimith.github.io</a> uzimith</i></div></div></footer></body></html>
