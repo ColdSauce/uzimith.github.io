@@ -25,6 +25,5 @@ compile:
 deployment:
   production:
     branch: source
-    tag: /release-.*/
     commands:
       - ./scripts/deploy.sh
