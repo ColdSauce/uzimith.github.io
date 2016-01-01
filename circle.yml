@@ -4,6 +4,7 @@ general:
   branches:
     ignore:
       - gh-pages
+      - master
 
 machine:
   services:
