@@ -23,8 +23,8 @@ compile:
     - echo 'Do not run bundle exec middleman build!'
 
 deployment:
-  master:
-    branch: master
+  production:
+    branch: source
     tag: /release-.*/
     commands:
       - ./scripts/deploy.sh
