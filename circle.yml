@@ -10,9 +10,11 @@ machine:
     - docker
 
 dependencies:
+  cache_directories:
+    - "~/cache"
   override:
     - docker info
-    - docker build -t middleman .
+    - ./scripts/docker-build.sh
 
 test:
   override:
