@@ -1,5 +1,4 @@
 general:
-  timezone: Asia/Tokyo
   artifacts:
     - docker
   branches:
