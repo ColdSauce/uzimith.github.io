@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flux on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/flux/</link>
+    <description>Recent content in Flux on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Mon, 16 Feb 2015 09:42:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/flux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Javscriptのクラス対応(=React 0.13対応)のFlummoxを試してみた</title>
+      <link>https://uzimith.net/posts/2015/02/16/react-flummox-demo/</link>
+      <pubDate>Mon, 16 Feb 2015 09:42:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/16/react-flummox-demo/</guid>
+      <description>前回の記事で快適なReact環境を手に入れることが出来た私ですが、Fluxを導入しようとして壁にぶち当たりました。
+Fluxxorなどの有名なFlux実装などは StoreとComponentの紐付けに従来のMixinを利用することが前提となっていますが、ReactにおいてMixinはReact.Componentを利用していると使えません。
+ちょっとGithubを見ていたらacdlite/flummoxが特徴にReact 0.13対応だと書いてあったのでとりあえずTodoを実装しました。
+ Todoデモ  ソースコード   簡単な説明 Actions class TodoActions extends Actions createTodo: (text) -&amp;gt; id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36) { id: id text: text complete: false } 関数の返り値が自動的にDispatcherに送られる。(undefinedを送るとDispatcherに無視されるので注意)
+Store class TodoStore extends Store constructor: (flux) -&amp;gt; super todoActions = flux.getActionIds(&amp;#39;todo&amp;#39;) @register(todoActions.createTodo, @handleNewTodo) @state = { todos: { 1: { id: 1 complete: true text: &amp;#34;hoge&amp;#34; } } } handleNewTodo: (todo) =&amp;gt; todos = @state.</description>
+    </item>
+    
+    <item>
+      <title>Riot.jsでFluxのデモ実装した。</title>
+      <link>https://uzimith.net/posts/2015/02/11/riotjs-de-flux/</link>
+      <pubDate>Wed, 11 Feb 2015 22:32:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/11/riotjs-de-flux/</guid>
+      <description>フロントエンド開発でコンポーネント指向で書きたいのは間違いないんですが、 Reactは簡単な事をするのにも大量のコードを必要として手軽に書くのには辛いライブラリだと思っていたところ、 Qiitaでよさ気なライブラリが話題になってました。
+ Riot.js 2.0 を触ってみた — まだReactで消耗しているの? - Qiita Riotjsのいいところ - Qiita  もともとfluxのデモコードがまったく理解できなくて悩んでいたところだったので2つのデモを実装しました。
+ Todo Chat  https://github.com/uzimith/flux-practice
+Fluxについて fluxのコンセプトについては公式サイト読んでても全く理解できなかったので、下のサイトを見て覚えました。
+ Fluxアーキテクチャの覚え書きを書いた - snyk_s log Fluxとはなんだったのか + misc at 2014 - snyk_s log What the flux?  Actionが(ユーザーの)動作、DispatcherがObserver、StoreがModelでAction -&amp;gt; Dispatcher -&amp;gt; Store -&amp;gt; Viewの一方通行でデータが動くと思えば大体合ってる気がします。
+しかし、いまだにWEB APIがActionCreaterから呼び出される利点が未だに分かってないです。Storeで隠蔽してもいいと思うんですが。 複数のStoreを叩く必要があるAPI呼び出しを書く際に困らない、のかなといったところ。</description>
+    </item>
+    
+  </channel>
+</rss>

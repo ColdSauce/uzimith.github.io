@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/hugo/</link>
+    <description>Recent content in Hugo on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Tue, 14 Nov 2017 23:48:02 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>middlemanからHugoに移行した</title>
+      <link>https://uzimith.net/posts/2017/11/14/hugo/</link>
+      <pubDate>Tue, 14 Nov 2017 23:48:02 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2017/11/14/hugo/</guid>
+      <description> middlemanとgithub.ioの構成から、Hugoとgithub pagesを利用しつつ独自ドメイン + Cloudflareを利用する構成に変更してCDNでHTTPS化してもらった。
+markdownのdateとtagsの形式が異なるのと、 ルート下から posts/ 以下にブロク記事が移動したのでaliasが必要になると思う。importスクリプトがなかったので作ったほうが良さそうだったが、記事も少なかったので手作業で移行した。普通にめんどくさかった。
+記事生成はmiddlemanと違って自分でパスを指定するようなのでコマンドを書いておいた。
+#!/bin/bash  hugo new posts/$(date +&amp;#34;%Y/%m/%d&amp;#34;)/$1.md 記事数が少ないので当てにならないがこのブロクの生成も爆速になって快適な気がする。
+参考  ブログをMiddlemanからHugoに移行した - UKSTUDIO  </description>
+    </item>
+    
+  </channel>
+</rss>

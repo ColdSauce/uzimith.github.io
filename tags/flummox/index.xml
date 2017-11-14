@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flummox on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/flummox/</link>
+    <description>Recent content in Flummox on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Mon, 16 Feb 2015 09:42:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/flummox/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Javscriptのクラス対応(=React 0.13対応)のFlummoxを試してみた</title>
+      <link>https://uzimith.net/posts/2015/02/16/react-flummox-demo/</link>
+      <pubDate>Mon, 16 Feb 2015 09:42:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/16/react-flummox-demo/</guid>
+      <description>前回の記事で快適なReact環境を手に入れることが出来た私ですが、Fluxを導入しようとして壁にぶち当たりました。
+Fluxxorなどの有名なFlux実装などは StoreとComponentの紐付けに従来のMixinを利用することが前提となっていますが、ReactにおいてMixinはReact.Componentを利用していると使えません。
+ちょっとGithubを見ていたらacdlite/flummoxが特徴にReact 0.13対応だと書いてあったのでとりあえずTodoを実装しました。
+ Todoデモ  ソースコード   簡単な説明 Actions class TodoActions extends Actions createTodo: (text) -&amp;gt; id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36) { id: id text: text complete: false } 関数の返り値が自動的にDispatcherに送られる。(undefinedを送るとDispatcherに無視されるので注意)
+Store class TodoStore extends Store constructor: (flux) -&amp;gt; super todoActions = flux.getActionIds(&amp;#39;todo&amp;#39;) @register(todoActions.createTodo, @handleNewTodo) @state = { todos: { 1: { id: 1 complete: true text: &amp;#34;hoge&amp;#34; } } } handleNewTodo: (todo) =&amp;gt; todos = @state.</description>
+    </item>
+    
+  </channel>
+</rss>

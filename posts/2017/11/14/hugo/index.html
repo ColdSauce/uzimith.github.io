@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.30.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Future [ _ ]">
+<title>middlemanからHugoに移行した - Future [ _ ]</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/picture.png" width="60" height="60" alt="Future [ _ ]"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">middlemanからHugoに移行した</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2017-11-14">November 14, 2017</time></span>
+			<section itemprop="entry-text">
+				
+
+<p>middlemanとgithub.ioの構成から、<a href="https://gohugo.io/">Hugo</a>とgithub pagesを利用しつつ独自ドメイン + <a href="https://www.cloudflare.com/">Cloudflare</a>を利用する構成に変更してCDNでHTTPS化してもらった。</p>
+
+<p>markdownのdateとtagsの形式が異なるのと、 ルート下から <code>posts/</code> 以下にブロク記事が移動したのでaliasが必要になると思う。importスクリプトがなかったので作ったほうが良さそうだったが、記事も少なかったので手作業で移行した。普通にめんどくさかった。</p>
+
+<p>記事生成はmiddlemanと違って自分でパスを指定するようなのでコマンドを書いておいた。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+hugo new posts/<span class="k">$(</span>date +<span class="s2">&#34;%Y/%m/%d&#34;</span><span class="k">)</span>/<span class="nv">$1</span>.md</code></pre></div>
+<p>記事数が少ないので当てにならないがこのブロクの生成も爆速になって快適な気がする。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="http://ukstudio.jp/posts/2017/02/20/hugo/">ブログをMiddlemanからHugoに移行した - UKSTUDIO</a></li>
+</ul>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:uzimith.x9@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/uzimith" target="_blank">Twitter</a>
+			
+			<a href="https://github.com/uzimith/" target="_blank">GitHub</a>
+			
+		</div>
+		<div class="copyright">Copyright &copy; uzimith All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

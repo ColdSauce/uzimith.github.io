@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.30.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Future [ _ ]">
+<title>jspmって遅い？ - Future [ _ ]</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/picture.png" width="60" height="60" alt="Future [ _ ]"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">jspmって遅い？</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-02-02">February 02, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<h1 id="jspmについて">jspmについて</h1>
+
+<p>みなさん<a href="http://jspm.io/">jspm</a>ってご存知ですか。
+自分はQiitaの記事で知ったんですけど。</p>
+
+<p><a href="http://qiita.com/hrsh7th@github/items/0a225c46ba17196b9a55">jspm で快適 javascript 生活（クライアントサイド JS の依存管理決定版） - Qiita</a></p>
+
+<p><a href="https://github.com/ModuleLoader/es6-module-loader">ES6 module loader</a>を利用してES6のimport文で前もってダウンロードしていたパッケージを読み込む仕組みになってるみたいです。依存も解決してくれるし特にnpmでもgithubでも<a href="https://github.com/guybedford/jspm-bower">bowerでも</a>インストールできるのが明らかな優位な点っぽいです。</p>
+
+<h1 id="importって速度的に大丈夫なの">importって速度的に大丈夫なの？</h1>
+
+<p><code>jspm init</code>ってやると<code>config.js</code>と<code>es6-module-loader.js</code>とかが入った<code>jspm_packages</code>のフォルダが生成されるんですが、そんないろんなファイルをインポートして遅くならないかなって
+思い<code>jspm slow</code>とかでぐぐてみたんですけど特に計測してるサイトとか無かったのでまあ問題ないものかなとReactを書き始めてみました。
+すると表示が明らかに待たされて違和感バリバリだったのでwatchifyでも変換したファイルを読み込む場合とくらべてみました。</p>
+
+<h2 id="jspmの場合">jspmの場合</h2>
+
+<div class="video">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/XS4vxqguf1U?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<p><a href="https://github.com/uzimith/flux-todo-practice/tree/692aa4eb33afd1fd372d51da10b517db4384d0d7">https://github.com/uzimith/flux-todo-practice/tree/692aa4eb33afd1fd372d51da10b517db4384d0d7</a></p>
+
+<p>1.30 s</p>
+
+<h1 id="watchifyの場合">watchifyの場合</h1>
+
+<div class="video">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/pwv-8zQddBE?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<p><a href="https://github.com/uzimith/flux-todo-practice/tree/4d2bc63b8026cdc42ebb5d2bac99733eecb188b9#">https://github.com/uzimith/flux-todo-practice/tree/4d2bc63b8026cdc42ebb5d2bac99733eecb188b9#</a></p>
+
+<p>275 ms</p>
+
+<p>さすがに文字を出すだけでこの速度になるようでは実用性に欠けるのではないかと思っていたところ<a href="https://github.com/jspm/jspm-cli/wiki/Production-Workflows">Prodoction環境用のファイル生成法</a>がありました。
+<code>jspm bundle</code>して<code>build.js</code>を作って読み込ませるといいらしい。</p>
+
+<div class="video">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/2fM2tmrqxjk?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<p>324 msと、かなり早くなりました。とはいえwatchifyは250ms前後で安定してるのでこのコードの場合はwatchifyの生成するコードの方が若干速いです。</p>
+
+<h1 id="所感">所感</h1>
+
+<p>jspmでもbundleすれば十分速度が出るっぽいです。実はトップページを目を通せばひと目でわかることなんですが。</p>
+
+<pre><code>For production, optimize into a bundle, layered bundles or a self-executing bundle with a single command.
+</code></pre>
+
+<p>とはいえ自分的には開発中レンダリングが遅いほうが苦になるのが目に見えてるし、JSXで書くために<a href="https://github.com/floatdrop/plugin-jsx">パスの指定が<code>.jsx!</code>になる</a>とださいし、
+6to5ify,reactify,uglifyなどwatchifyで機能性は十分、むしろ高いとjspmを使う理由は見当たらないといったところです。</p>
+
+<p>ビルドのほうが時間がかかるということならjspmのほうがいいと思いますが、大規模なプロジェクトとかだとそうなんですかね？</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:uzimith.x9@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/uzimith" target="_blank">Twitter</a>
+			
+			<a href="https://github.com/uzimith/" target="_blank">GitHub</a>
+			
+		</div>
+		<div class="copyright">Copyright &copy; uzimith All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

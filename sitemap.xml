@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://uzimith.net/posts/2017/11/14/hugo/</loc>
+    <lastmod>2017-11-14T23:48:02+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/02/16/react-flummox-demo/</loc>
+    <lastmod>2015-02-16T09:42:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/02/13/react-jade-coffee/</loc>
+    <lastmod>2015-02-13T21:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/02/11/riotjs-de-flux/</loc>
+    <lastmod>2015-02-11T22:32:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/02/02/jspm-is-slow/</loc>
+    <lastmod>2015-02-02T01:30:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/01/11/oboe-sample/</loc>
+    <lastmod>2015-01-14T23:38:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/01/11/middleman-blog-search/</loc>
+    <lastmod>2015-01-11T14:12:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/01/06/middleman-react/</loc>
+    <lastmod>2015-01-06T11:47:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/01/04/middleman-bug/</loc>
+    <lastmod>2015-01-04T12:32:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/2015/01/04/start/</loc>
+    <lastmod>2015-01-04T06:14:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/ajax/</loc>
+    <lastmod>2015-01-14T23:38:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/coffeescript/</loc>
+    <lastmod>2015-02-13T21:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/daily/</loc>
+    <lastmod>2015-01-04T06:14:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/flummox/</loc>
+    <lastmod>2015-02-16T09:42:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/flux/</loc>
+    <lastmod>2015-02-16T09:42:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/</loc>
+    <lastmod>2017-11-14T23:48:02+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/hugo/</loc>
+    <lastmod>2017-11-14T23:48:02+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/jade/</loc>
+    <lastmod>2015-02-13T21:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/javascript/</loc>
+    <lastmod>2015-02-02T01:30:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/middleman/</loc>
+    <lastmod>2015-01-11T14:12:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/oboe.js/</loc>
+    <lastmod>2015-01-14T23:38:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/posts/</loc>
+    <lastmod>2017-11-14T23:48:02+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/react/</loc>
+    <lastmod>2015-02-16T09:42:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/riotjs/</loc>
+    <lastmod>2015-02-11T22:32:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://uzimith.net/tags/</loc>
+    <lastmod>2015-01-14T23:38:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oboe.js on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/oboe.js/</link>
+    <description>Recent content in Oboe.js on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Wed, 14 Jan 2015 23:38:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/oboe.js/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Oboe.jsのデモ</title>
+      <link>https://uzimith.net/posts/2015/01/11/oboe-sample/</link>
+      <pubDate>Wed, 14 Jan 2015 23:38:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/01/11/oboe-sample/</guid>
+      <description>今日はOboe.jsを触っていたのでその記事です。
+Oboe.jsとは JSONをストリーミングで読み込むライブラリです。通常のAJAXだとJSONをすべて読み込むまで待機するため 大きいファイルを扱ったり、モバイル環境のような低速環境だったりすると読み込み完了までなんの情報も得られない という欠点を改善してくれます。
+とはいえ、いまいちピンとこないのでデモサイト作って動作確認してました。
+コード例 とりあえずExampleを見る。
+Oboe.jsの目的ではないが、AJAXライブラリとしても使える。
+oboe(&amp;#39;/myapp/things.json&amp;#39;) .done(function(things) { // すべて読み込みが完了した場合  }) .fail(function() { // なんらかのエラーが発生した場合  }); ストリーミングで受け取るには以下
+こういうJSONが来るとして
+{ &amp;#34;foods&amp;#34;: [ {&amp;#34;name&amp;#34;:&amp;#34;aubergine&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;purple&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;apple&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;red&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;nuts&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;brown&amp;#34;} ], &amp;#34;badThings&amp;#34;: [ {&amp;#34;name&amp;#34;:&amp;#34;poison&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;pink&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;broken_glass&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;green&amp;#34;} ] } oboe.node(&amp;lsquo;pattern&amp;rsquo;, callback)を指定する。
+oboe(&amp;#39;/myapp/things.json&amp;#39;) .node(&amp;#39;foods.*&amp;#39;, function( foodThing ){ // &amp;#39;foods.*&amp;#39;に該当する新しい要素を見つけるとこのコールバックが呼ばれる。  console.log( &amp;#39;Go eat some&amp;#39;, foodThing.name); }) .node(&amp;#39;badThings.*&amp;#39;, function( badThing ){ console.log( &amp;#39;Stay away from&amp;#39;, badThing.name); }) .done(function(things){ console.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Daily on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/daily/</link>
+    <description>Recent content in Daily on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Sun, 04 Jan 2015 06:14:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/daily/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ブログはじめる</title>
+      <link>https://uzimith.net/posts/2015/01/04/start/</link>
+      <pubDate>Sun, 04 Jan 2015 06:14:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/01/04/start/</guid>
+      <description>ブログです。
+基本的には個人情報を発信することに意義はないと思っているんですが、自身のコンテンツ力を上げていく必要性もヒシヒシ感じる日々なので、年も明けて始めるのにもちょうどいいんじゃないかと。
+middleman-blogとかいうスゴいソフトウェアのお陰でvimさえあれば更新出来ちゃうので、自分みたいなものぐさな人でも軽く更新出来る予定です。
+これでGithubのContributionsもガンガン増えちゃうね。</description>
+    </item>
+    
+  </channel>
+</rss>

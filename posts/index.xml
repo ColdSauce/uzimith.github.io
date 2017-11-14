@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Future [ _ ]</title>
+    <link>https://uzimith.net/posts/</link>
+    <description>Recent content in Posts on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Tue, 14 Nov 2017 23:48:02 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>middlemanからHugoに移行した</title>
+      <link>https://uzimith.net/posts/2017/11/14/hugo/</link>
+      <pubDate>Tue, 14 Nov 2017 23:48:02 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2017/11/14/hugo/</guid>
+      <description> middlemanとgithub.ioの構成から、Hugoとgithub pagesを利用しつつ独自ドメイン + Cloudflareを利用する構成に変更してCDNでHTTPS化してもらった。
+markdownのdateとtagsの形式が異なるのと、 ルート下から posts/ 以下にブロク記事が移動したのでaliasが必要になると思う。importスクリプトがなかったので作ったほうが良さそうだったが、記事も少なかったので手作業で移行した。普通にめんどくさかった。
+記事生成はmiddlemanと違って自分でパスを指定するようなのでコマンドを書いておいた。
+#!/bin/bash  hugo new posts/$(date +&amp;#34;%Y/%m/%d&amp;#34;)/$1.md 記事数が少ないので当てにならないがこのブロクの生成も爆速になって快適な気がする。
+参考  ブログをMiddlemanからHugoに移行した - UKSTUDIO  </description>
+    </item>
+    
+    <item>
+      <title>Javscriptのクラス対応(=React 0.13対応)のFlummoxを試してみた</title>
+      <link>https://uzimith.net/posts/2015/02/16/react-flummox-demo/</link>
+      <pubDate>Mon, 16 Feb 2015 09:42:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/16/react-flummox-demo/</guid>
+      <description>前回の記事で快適なReact環境を手に入れることが出来た私ですが、Fluxを導入しようとして壁にぶち当たりました。
+Fluxxorなどの有名なFlux実装などは StoreとComponentの紐付けに従来のMixinを利用することが前提となっていますが、ReactにおいてMixinはReact.Componentを利用していると使えません。
+ちょっとGithubを見ていたらacdlite/flummoxが特徴にReact 0.13対応だと書いてあったのでとりあえずTodoを実装しました。
+ Todoデモ  ソースコード   簡単な説明 Actions class TodoActions extends Actions createTodo: (text) -&amp;gt; id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36) { id: id text: text complete: false } 関数の返り値が自動的にDispatcherに送られる。(undefinedを送るとDispatcherに無視されるので注意)
+Store class TodoStore extends Store constructor: (flux) -&amp;gt; super todoActions = flux.getActionIds(&amp;#39;todo&amp;#39;) @register(todoActions.createTodo, @handleNewTodo) @state = { todos: { 1: { id: 1 complete: true text: &amp;#34;hoge&amp;#34; } } } handleNewTodo: (todo) =&amp;gt; todos = @state.</description>
+    </item>
+    
+    <item>
+      <title>React.jsをCoffeeScriptとjadeで書く</title>
+      <link>https://uzimith.net/posts/2015/02/13/react-jade-coffee/</link>
+      <pubDate>Fri, 13 Feb 2015 21:00:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/13/react-jade-coffee/</guid>
+      <description>はじめに  React v0.13.0 Beta 1 | React  React.Componentを使うと生のJSのclass形式でReact Componentを定義できる  reactjs - react-jadeでjadeテンプレートから仮想DOMを出力する - Qiita  JSXのXの部分をjadeで書けるようにするライブラリ (Jade -&amp;gt; React VDOM)   ここあたりの記事を読んでRiot.jsなら素でできるCoffeeScriptとJadeの組み合わせがReactでも出来そうだと気づいたので試行錯誤中、 よさ気な書き方を見つけた話です。
+結論 こうです。
+https://gist.github.com/uzimith/145a0cf8e342dc46ac96
+React = require(&amp;#39;react&amp;#39;) jade = require(&amp;#39;react-jade&amp;#39;) _ = require(&amp;#39;lodash&amp;#39;) class Counter extends React.Component constructor: -&amp;gt; @state =  count: 0 tick: =&amp;gt; @setState count: @state.count + 1 render: =&amp;gt; jade.compile(&amp;#34;&amp;#34;&amp;#34; #counter span Count : button(onClick=tick)= count &amp;#34;&amp;#34;&amp;#34;)(_.assign {}, @, @props, @state) React.</description>
+    </item>
+    
+    <item>
+      <title>Riot.jsでFluxのデモ実装した。</title>
+      <link>https://uzimith.net/posts/2015/02/11/riotjs-de-flux/</link>
+      <pubDate>Wed, 11 Feb 2015 22:32:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/11/riotjs-de-flux/</guid>
+      <description>フロントエンド開発でコンポーネント指向で書きたいのは間違いないんですが、 Reactは簡単な事をするのにも大量のコードを必要として手軽に書くのには辛いライブラリだと思っていたところ、 Qiitaでよさ気なライブラリが話題になってました。
+ Riot.js 2.0 を触ってみた — まだReactで消耗しているの? - Qiita Riotjsのいいところ - Qiita  もともとfluxのデモコードがまったく理解できなくて悩んでいたところだったので2つのデモを実装しました。
+ Todo Chat  https://github.com/uzimith/flux-practice
+Fluxについて fluxのコンセプトについては公式サイト読んでても全く理解できなかったので、下のサイトを見て覚えました。
+ Fluxアーキテクチャの覚え書きを書いた - snyk_s log Fluxとはなんだったのか + misc at 2014 - snyk_s log What the flux?  Actionが(ユーザーの)動作、DispatcherがObserver、StoreがModelでAction -&amp;gt; Dispatcher -&amp;gt; Store -&amp;gt; Viewの一方通行でデータが動くと思えば大体合ってる気がします。
+しかし、いまだにWEB APIがActionCreaterから呼び出される利点が未だに分かってないです。Storeで隠蔽してもいいと思うんですが。 複数のStoreを叩く必要があるAPI呼び出しを書く際に困らない、のかなといったところ。</description>
+    </item>
+    
+    <item>
+      <title>jspmって遅い？</title>
+      <link>https://uzimith.net/posts/2015/02/02/jspm-is-slow/</link>
+      <pubDate>Mon, 02 Feb 2015 01:30:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/02/jspm-is-slow/</guid>
+      <description>jspmについて みなさんjspmってご存知ですか。 自分はQiitaの記事で知ったんですけど。
+jspm で快適 javascript 生活（クライアントサイド JS の依存管理決定版） - Qiita
+ES6 module loaderを利用してES6のimport文で前もってダウンロードしていたパッケージを読み込む仕組みになってるみたいです。依存も解決してくれるし特にnpmでもgithubでもbowerでもインストールできるのが明らかな優位な点っぽいです。
+importって速度的に大丈夫なの？ jspm initってやるとconfig.jsとes6-module-loader.jsとかが入ったjspm_packagesのフォルダが生成されるんですが、そんないろんなファイルをインポートして遅くならないかなって 思いjspm slowとかでぐぐてみたんですけど特に計測してるサイトとか無かったのでまあ問題ないものかなとReactを書き始めてみました。 すると表示が明らかに待たされて違和感バリバリだったのでwatchifyでも変換したファイルを読み込む場合とくらべてみました。
+jspmの場合   https://github.com/uzimith/flux-todo-practice/tree/692aa4eb33afd1fd372d51da10b517db4384d0d7
+1.30 s
+watchifyの場合   https://github.com/uzimith/flux-todo-practice/tree/4d2bc63b8026cdc42ebb5d2bac99733eecb188b9#
+275 ms
+さすがに文字を出すだけでこの速度になるようでは実用性に欠けるのではないかと思っていたところProdoction環境用のファイル生成法がありました。 jspm bundleしてbuild.jsを作って読み込ませるといいらしい。
+  324 msと、かなり早くなりました。とはいえwatchifyは250ms前後で安定してるのでこのコードの場合はwatchifyの生成するコードの方が若干速いです。
+所感 jspmでもbundleすれば十分速度が出るっぽいです。実はトップページを目を通せばひと目でわかることなんですが。
+For production, optimize into a bundle, layered bundles or a self-executing bundle with a single command.  とはいえ自分的には開発中レンダリングが遅いほうが苦になるのが目に見えてるし、JSXで書くためにパスの指定が.jsx!になるとださいし、 6to5ify,reactify,uglifyなどwatchifyで機能性は十分、むしろ高いとjspmを使う理由は見当たらないといったところです。
+ビルドのほうが時間がかかるということならjspmのほうがいいと思いますが、大規模なプロジェクトとかだとそうなんですかね？</description>
+    </item>
+    
+    <item>
+      <title>Oboe.jsのデモ</title>
+      <link>https://uzimith.net/posts/2015/01/11/oboe-sample/</link>
+      <pubDate>Wed, 14 Jan 2015 23:38:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/01/11/oboe-sample/</guid>
+      <description>今日はOboe.jsを触っていたのでその記事です。
+Oboe.jsとは JSONをストリーミングで読み込むライブラリです。通常のAJAXだとJSONをすべて読み込むまで待機するため 大きいファイルを扱ったり、モバイル環境のような低速環境だったりすると読み込み完了までなんの情報も得られない という欠点を改善してくれます。
+とはいえ、いまいちピンとこないのでデモサイト作って動作確認してました。
+コード例 とりあえずExampleを見る。
+Oboe.jsの目的ではないが、AJAXライブラリとしても使える。
+oboe(&amp;#39;/myapp/things.json&amp;#39;) .done(function(things) { // すべて読み込みが完了した場合  }) .fail(function() { // なんらかのエラーが発生した場合  }); ストリーミングで受け取るには以下
+こういうJSONが来るとして
+{ &amp;#34;foods&amp;#34;: [ {&amp;#34;name&amp;#34;:&amp;#34;aubergine&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;purple&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;apple&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;red&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;nuts&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;brown&amp;#34;} ], &amp;#34;badThings&amp;#34;: [ {&amp;#34;name&amp;#34;:&amp;#34;poison&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;pink&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;broken_glass&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;green&amp;#34;} ] } oboe.node(&amp;lsquo;pattern&amp;rsquo;, callback)を指定する。
+oboe(&amp;#39;/myapp/things.json&amp;#39;) .node(&amp;#39;foods.*&amp;#39;, function( foodThing ){ // &amp;#39;foods.*&amp;#39;に該当する新しい要素を見つけるとこのコールバックが呼ばれる。  console.log( &amp;#39;Go eat some&amp;#39;, foodThing.name); }) .node(&amp;#39;badThings.*&amp;#39;, function( badThing ){ console.log( &amp;#39;Stay away from&amp;#39;, badThing.name); }) .done(function(things){ console.</description>
+    </item>
+    
+    <item>
+      <title>middleman-blogでの検索機能をJavascript(React)で実装した。</title>
+      <link>https://uzimith.net/posts/2015/01/11/middleman-blog-search/</link>
+      <pubDate>Sun, 11 Jan 2015 14:12:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/01/11/middleman-blog-search/</guid>
+      <description>middleman-blogの検索機能の前例はあるんですが jQueryを利用しているため宗教上の理由により使用できません。
+説明 最近はReactが気になっているのでこちらで実装しました。
+こちらがデモです。
+前例に比べて該当部分を表示する機能も追加したので使いやすいんじゃないかと。
+実装 ソースコードはこちらです。
+uzimith/middleman-blog-search-sample
+参考にどうぞ。
+所感 Reactのチュートリアル見ながら書いてたら簡単に書けました。 さらにちょうど先月のAdvent Calendarが分かりやすいので、いま始めやすいと思います。
+一人React.js Advent Calendar 2014 - Qiita
+書き始めは双方向バインドじゃないのかと若干失望気味だったんですが、データの流れを一方向にすることでアプリケーションを複雑さを 減らすという思想が結構良いですね。一度Fluxを使った中規模アプリケーション書いてみたいです。
+Reactはコンポーネント思想でつまりいろいろ飛び飛びで見なくても、その機能のすべてが集まってる、そういう感じで書く印象です。
+Web ComponentsとPolymerが同じ思想で出来てるのかなといった感じですが、 Polymerは将来的に正しく未来のWebはこう書ければいいという夢を語る実装で、Reactは現実的に実用できる範囲で実装されているんでしょう。
+いまPolymerを使うと遅すぎて話にならないですが、Web ComponentsはC++で実装されるわけですからそのうち早くなる未来が待ってるはず。
+それまではコンポーネント思想ならReactですね。よさ気なライブラリです。</description>
+    </item>
+    
+    <item>
+      <title>middlemanでReactを書く</title>
+      <link>https://uzimith.net/posts/2015/01/06/middleman-react/</link>
+      <pubDate>Tue, 06 Jan 2015 11:47:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/01/06/middleman-react/</guid>
+      <description>JavascriptのライブラリといえばAngularJSとかvue.jsなどが流行っていますが 今回はさらなる流行の最先端Reactです。
+というわけで書き始めようと思うのですが、書き方がいろいろあって一番簡単なのはCDNを使うことです。
+&amp;lt;script src=&amp;#34;http://fb.me/react-0.11.1.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#34;http://fb.me/JSXTransformer-0.11.1.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script type=&amp;#34;text/jsx;harmony=true&amp;#34;&amp;gt; //ここに書ける  &amp;lt;/script&amp;gt; さすがにコレはリアルタイムでコンパイルしているので遅くなるみたいです。
+普通こういったJavascriptライブラリを書くとなるとGulpを使うことになりますが ちょっと気持ちが萎える(Gulp好きじゃない)わりにいい感じにMiddlemanと協調するGulpfileを書けなかった(だからキライ)ので もうmiddlemanに処理させたいと思います。
+というかいまMiddlemanで書いてるんだから、よしなに頑張ってくれ。
+というわけでmiddleman-reactです。 公式のreactjs/react-railsにインスパイアされた(ていうかパクった)middleman拡張です。
+Gemfile gem &amp;#34;middleman-react&amp;#34; config.rb activate :react, harmony: true after_configuration do sprockets.append_path File.dirname(::React::Source.bundled_path_for(&amp;#39;react.js&amp;#39;)) end source/javascripts/all.js //= require react-with-addons //= require_tree . あとはjavascripts配下に.js.jsxファイルを追加していくといい感じに書けます。
+簡単ですね。
+HTMLのbodyの最後とかで下みたく書いたりとかすればいいんじゃないかと。
+hoge.slim #hogehoge = javascript_include_tag &amp;#34;all&amp;#34; ところでmiddleman-reactのharmonyオプションですが、もともと見当たらなかったので私が追加しました。
+ES6やES7の構文がコンパイルできるようになります。
+つまり下記が使えるようになります。実はあまり調べてませんが。
+ es6-arrow-functions es6-object-concise-method es6-object-short-notation es6-classes es6-rest-params es6-templates es6-destructuring es7-spread-property  https://github.com/facebook/react/blob/master/vendor/fbtransform/visitors.js
+アロー関数やテンプレートリテラルは便利なのでぜひお使いください。
+所感 簡単に導入できるのはいいんですがやっぱりrequireが使いたくなってきますね。 superagentなんかはrequireできないと使えないです。
+ここあたりのJavascriptライブラリのベストプラクティスが分からなくていつも困ってます。
+今思っているのはGuardからwatchifyを呼び出すのが汎用的な解決なんじゃないかなってことです。試してないですが。</description>
+    </item>
+    
+    <item>
+      <title>middlemanでファイルを書き換えてもサーバーに反映されない。</title>
+      <link>https://uzimith.net/posts/2015/01/04/middleman-bug/</link>
+      <pubDate>Sun, 04 Jan 2015 12:32:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/01/04/middleman-bug/</guid>
+      <description>OS X Yosemite 10.10.1 ruby 2.1.2p95 (2014-05-08 revision 45877) [x86_64-darwin14.0] middleman (3.3.7)  middlemanいじってもconfig.rbやhelperメソッド書き換えても反映されなくて違和感を覚えていたらOSXのバグらしき報告がありました。
+Middleman 3.0 requires manual server restart for any change in config.rb or middleman-blog · Issue #595 · middleman/middleman
+なるほどと思って、再起動したらLiveReloadが動かなくなりました。なるほど。
+確かにサーバーの再起動してるよりは手動で更新する方がはるかにマシなんですが。
+追記(15/01/06) やっぱり不安定で現象が再現しないですね。
+サーバー再起動せずに設定が反映されない/LiveReloadが動かない
+といった感じなんですが時たま反応していて困ります。
+結局 上のページ曰く 「原因はOS X FSEvents bugなんじゃないか」「サーバーの問題なのでは、Powで動かしたい」「Powはv4で対応予定」 とかなんとか。v4が今alpha6なので待っているといいかもしれません。</description>
+    </item>
+    
+    <item>
+      <title>ブログはじめる</title>
+      <link>https://uzimith.net/posts/2015/01/04/start/</link>
+      <pubDate>Sun, 04 Jan 2015 06:14:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/01/04/start/</guid>
+      <description>ブログです。
+基本的には個人情報を発信することに意義はないと思っているんですが、自身のコンテンツ力を上げていく必要性もヒシヒシ感じる日々なので、年も明けて始めるのにもちょうどいいんじゃないかと。
+middleman-blogとかいうスゴいソフトウェアのお陰でvimさえあれば更新出来ちゃうので、自分みたいなものぐさな人でも軽く更新出来る予定です。
+これでGithubのContributionsもガンガン増えちゃうね。</description>
+    </item>
+    
+  </channel>
+</rss>

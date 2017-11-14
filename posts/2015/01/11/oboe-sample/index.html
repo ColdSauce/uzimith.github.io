@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.30.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Future [ _ ]">
+<title>Oboe.jsのデモ - Future [ _ ]</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/picture.png" width="60" height="60" alt="Future [ _ ]"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Oboe.jsのデモ</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-01-14">January 14, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<p>今日は<a href="http://oboejs.com/">Oboe.js</a>を触っていたのでその記事です。</p>
+
+<h1 id="oboe-jsとは">Oboe.jsとは</h1>
+
+<p>JSONをストリーミングで読み込むライブラリです。通常のAJAXだとJSONをすべて読み込むまで待機するため
+大きいファイルを扱ったり、モバイル環境のような低速環境だったりすると読み込み完了までなんの情報も得られない
+という欠点を改善してくれます。</p>
+
+<p>とはいえ、いまいちピンとこないのでデモサイト作って動作確認してました。</p>
+
+<h2 id="コード例">コード例</h2>
+
+<p>とりあえず<a href="http://oboejs.com/examples">Example</a>を見る。</p>
+
+<p>Oboe.jsの目的ではないが、AJAXライブラリとしても使える。</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">oboe</span><span class="p">(</span><span class="s1">&#39;/myapp/things.json&#39;</span><span class="p">)</span>
+   <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">things</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="c1">// すべて読み込みが完了した場合
+</span><span class="c1"></span>   <span class="p">})</span>
+   <span class="p">.</span><span class="nx">fail</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+      <span class="c1">// なんらかのエラーが発生した場合
+</span><span class="c1"></span>   <span class="p">});</span></code></pre></div>
+<p>ストリーミングで受け取るには以下</p>
+
+<p>こういうJSONが来るとして</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+   <span class="nt">&#34;foods&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;aubergine&#34;</span><span class="p">,</span>    <span class="nt">&#34;colour&#34;</span><span class="p">:</span><span class="s2">&#34;purple&#34;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;apple&#34;</span><span class="p">,</span>        <span class="nt">&#34;colour&#34;</span><span class="p">:</span><span class="s2">&#34;red&#34;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;nuts&#34;</span><span class="p">,</span>         <span class="nt">&#34;colour&#34;</span><span class="p">:</span><span class="s2">&#34;brown&#34;</span><span class="p">}</span>
+   <span class="p">],</span>
+   <span class="nt">&#34;badThings&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;poison&#34;</span><span class="p">,</span>       <span class="nt">&#34;colour&#34;</span><span class="p">:</span><span class="s2">&#34;pink&#34;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;broken_glass&#34;</span><span class="p">,</span> <span class="nt">&#34;colour&#34;</span><span class="p">:</span><span class="s2">&#34;green&#34;</span><span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+<p>oboe.node(&lsquo;pattern&rsquo;, callback)を指定する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">oboe</span><span class="p">(</span><span class="s1">&#39;/myapp/things.json&#39;</span><span class="p">)</span>
+   <span class="p">.</span><span class="nx">node</span><span class="p">(</span><span class="s1">&#39;foods.*&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">foodThing</span> <span class="p">){</span>
+
+      <span class="c1">// &#39;foods.*&#39;に該当する新しい要素を見つけるとこのコールバックが呼ばれる。
+</span><span class="c1"></span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="s1">&#39;Go eat some&#39;</span><span class="p">,</span> <span class="nx">foodThing</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+   <span class="p">})</span>
+   <span class="p">.</span><span class="nx">node</span><span class="p">(</span><span class="s1">&#39;badThings.*&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">badThing</span> <span class="p">){</span>
+
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="s1">&#39;Stay away from&#39;</span><span class="p">,</span> <span class="nx">badThing</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+   <span class="p">})</span>
+   <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">things</span><span class="p">){</span>
+
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
+         <span class="s1">&#39;there are&#39;</span><span class="p">,</span> <span class="nx">things</span><span class="p">.</span><span class="nx">foods</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="s1">&#39;things to eat&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="nx">things</span><span class="p">.</span><span class="nx">nonFoods</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="s1">&#39;to avoid&#39;</span><span class="p">);</span> 
+   <span class="p">});</span></code></pre></div>
+<p>oboe.path(&lsquo;pattern&rsquo;, callback)を利用することでoboe.node()よりも早く
+callbackを呼び出すことができる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">currentPersonElement</span><span class="p">;</span>
+<span class="nx">oboe</span><span class="p">(</span><span class="s1">&#39;people.json&#39;</span><span class="p">)</span>
+   <span class="p">.</span><span class="nx">path</span><span class="p">(</span><span class="s1">&#39;people.*&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="c1">// パターンに該当する要素が存在することが分かったら
+</span><span class="c1"></span>      <span class="c1">// 中身を読み込む前にpathで指定されたコールバックを呼び出す。
+</span><span class="c1"></span>      <span class="c1">// 例えば、ここでは人物が読み込まれると分かった時点で
+</span><span class="c1"></span>      <span class="c1">// div要素を作ることで、とりあえず人物が読み込まれることをユーザーに示すことができる。
+</span><span class="c1"></span>      <span class="nx">currentPersonElement</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&#34;person&#34;&gt;&#39;</span><span class="p">);</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#people&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">currentPersonElement</span><span class="p">);</span>
+   <span class="p">})</span>
+   <span class="p">.</span><span class="nx">node</span><span class="p">({</span>
+      <span class="s1">&#39;people.*.name&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">name</span> <span class="p">){</span>
+         <span class="c1">// 名前を見つけた時点でdiv要素に名前を埋め込む
+</span><span class="c1"></span>         <span class="nx">currentPersonElement</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span>
+            <span class="s1">&#39;&lt;span class=&#34;name&#34;&gt;&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">);</span>
+      <span class="p">},</span>
+      <span class="s1">&#39;people.*.email&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">email</span> <span class="p">){</span>
+         <span class="c1">// メールアドレスを見つけた時点でdiv要素に名前を埋め込む
+</span><span class="c1"></span>         <span class="nx">currentPersonElement</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span>
+            <span class="s1">&#39;&lt;span class=&#34;email&#34;&gt;&#39;</span> <span class="o">+</span> <span class="nx">email</span> <span class="o">+</span> <span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">});</span></code></pre></div>
+<p>パターンの例が<a href="http://oboejs.com/examples#example-patterns">こちら</a></p>
+
+<p><code>*</code>が任意のオブジェクト、<code>!</code>がルートと言った感じ。</p>
+
+<h1 id="使ってみた">使ってみた</h1>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+    <span class="s2">&#34;article&#34;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&#34;text&#34;</span><span class="o">:</span> <span class="s2">&#34;...&#34;</span>
+        <span class="p">}</span>
+        <span class="c1">// ... (10000件)
+</span><span class="c1"></span>    <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+<p>みたいなJSONを作って読み込ませてみました。</p>
+
+<h2 id="oboe-done">oboe.done()</h2>
+
+<p>すべて読み込んでから表示します。</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;jquery&#34;</span><span class="p">);</span>
+<span class="nx">oboe</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;oboe&#34;</span><span class="p">);</span>
+
+<span class="nx">dom</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#articles&#34;</span><span class="p">);</span>
+<span class="nx">dom</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;&lt;div&gt;start&lt;/div&gt;&#34;</span><span class="p">);</span>
+
+<span class="nx">oboe</span><span class="p">(</span><span class="s2">&#34;articles.json&#34;</span><span class="p">).</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="p">.</span><span class="nx">article</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">dom</span><span class="p">.</span><span class="nx">prepend</span><span class="p">(</span><span class="s2">&#34;&lt;div&gt;&#34;</span><span class="o">+</span><span class="nx">article</span><span class="p">.</span><span class="nx">text</span><span class="o">+</span><span class="s2">&#34;&lt;/div&gt;&#34;</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="p">})</span></code></pre></div>
+<p><a href="http://uzimith.github.io/oboe-sample/done.html">oboe.done()</a></p>
+
+<h2 id="oboe-node">oboe.node()</h2>
+
+<p>ストリーミングで表示します。</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">$</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;jquery&#34;</span><span class="p">);</span>
+<span class="nx">oboe</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;oboe&#34;</span><span class="p">);</span>
+
+<span class="nx">dom</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&#34;#articles&#34;</span><span class="p">);</span>
+<span class="nx">dom</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;&lt;div&gt;start&lt;/div&gt;&#34;</span><span class="p">);</span>
+
+<span class="nx">oboe</span><span class="p">(</span><span class="s2">&#34;articles.json&#34;</span><span class="p">).</span><span class="nx">node</span><span class="p">(</span><span class="s1">&#39;article.*&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">dom</span><span class="p">.</span><span class="nx">prepend</span><span class="p">(</span><span class="s2">&#34;&lt;div&gt;&#34;</span><span class="o">+</span><span class="nx">article</span><span class="p">.</span><span class="nx">text</span><span class="o">+</span><span class="s2">&#34;&lt;/div&gt;&#34;</span><span class="p">);</span>
+<span class="p">});</span></code></pre></div>
+<p><a href="http://uzimith.github.io/oboe-sample/node.html">oboe.node()</a></p>
+
+<h1 id="所感">所感</h1>
+
+<p>ローカルで試す分には回線が早すぎて関数呼び出しの分か、むしろnode()の方が
+レンダリングが遅かったんですが、回線速度を下げてみると確かに順次表示されてました。
+大きいJSONを読み込む際にはいいかもしれません。</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:uzimith.x9@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/uzimith" target="_blank">Twitter</a>
+			
+			<a href="https://github.com/uzimith/" target="_blank">GitHub</a>
+			
+		</div>
+		<div class="copyright">Copyright &copy; uzimith All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

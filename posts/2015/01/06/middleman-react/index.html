@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.30.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Future [ _ ]">
+<title>middlemanでReactを書く - Future [ _ ]</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/picture.png" width="60" height="60" alt="Future [ _ ]"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">middlemanでReactを書く</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-01-06">January 06, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<p>Javascriptのライブラリといえば<a href="https://angularjs.org/">AngularJS</a>とか<a href="http://vuejs.org/">vue.js</a>などが流行っていますが
+今回はさらなる流行の最先端<a href="http://facebook.github.io/react/">React</a>です。</p>
+
+<p>というわけで書き始めようと思うのですが、書き方がいろいろあって一番簡単なのはCDNを使うことです。</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;http://fb.me/react-0.11.1.js&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;http://fb.me/JSXTransformer-0.11.1.js&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/jsx;harmony=true&#34;</span><span class="p"></span><span class="p">&gt;</span>
+
+<span class="c1">//ここに書ける
+</span><span class="c1"></span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<p>さすがにコレはリアルタイムでコンパイルしているので遅くなるみたいです。</p>
+
+<p>普通こういったJavascriptライブラリを書くとなると<a href="http://gulpjs.com/">Gulp</a>を使うことになりますが
+ちょっと気持ちが萎える(Gulp好きじゃない)わりにいい感じにMiddlemanと協調するGulpfileを書けなかった(だからキライ)ので
+もうmiddlemanに処理させたいと思います。</p>
+
+<p>というかいまMiddlemanで書いてるんだから、よしなに頑張ってくれ。</p>
+
+<p>というわけで<a href="https://github.com/plasticine/middleman-react">middleman-react</a>です。
+公式の<a href="https://github.com/reactjs/react-rails">reactjs/react-rails</a>にインスパイアされた(ていうかパクった)middleman拡張です。</p>
+
+<h3 id="gemfile">Gemfile</h3>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s2">&#34;middleman-react&#34;</span></code></pre></div>
+<h3 id="config-rb">config.rb</h3>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">activate</span> <span class="ss">:react</span><span class="p">,</span> <span class="ss">harmony</span><span class="p">:</span> <span class="kp">true</span>
+<span class="n">after_configuration</span> <span class="k">do</span>
+  <span class="n">sprockets</span><span class="o">.</span><span class="n">append_path</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="o">::</span><span class="no">React</span><span class="o">::</span><span class="no">Source</span><span class="o">.</span><span class="n">bundled_path_for</span><span class="p">(</span><span class="s1">&#39;react.js&#39;</span><span class="p">))</span>
+<span class="k">end</span></code></pre></div>
+<h3 id="source-javascripts-all-js">source/javascripts/all.js</h3>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="sr">//</span><span class="o">=</span> <span class="nb">require</span> <span class="n">react</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">addons</span>
+<span class="sr">//</span><span class="o">=</span> <span class="n">require_tree</span> <span class="o">.</span></code></pre></div>
+<p>あとは<code>javascripts</code>配下に<code>.js.jsx</code>ファイルを追加していくといい感じに書けます。</p>
+
+<p>簡単ですね。</p>
+
+<p>HTMLのbodyの最後とかで下みたく書いたりとかすればいいんじゃないかと。</p>
+
+<h3 id="hoge-slim">hoge.slim</h3>
+<div class="highlight"><pre class="chroma"><code class="language-slim" data-lang="slim">#hogehoge
+= javascript_include_tag &#34;all&#34;</code></pre></div>
+<p>ところでmiddleman-reactの<code>harmony</code>オプションですが、もともと見当たらなかったので私が追加しました。</p>
+
+<p>ES6やES7の構文がコンパイルできるようになります。</p>
+
+<p>つまり下記が使えるようになります。実はあまり調べてませんが。</p>
+
+<ul>
+<li>es6-arrow-functions</li>
+<li>es6-object-concise-method</li>
+<li>es6-object-short-notation</li>
+<li>es6-classes</li>
+<li>es6-rest-params</li>
+<li>es6-templates</li>
+<li>es6-destructuring</li>
+<li>es7-spread-property</li>
+</ul>
+
+<p><a href="https://github.com/facebook/react/blob/master/vendor/fbtransform/visitors.js">https://github.com/facebook/react/blob/master/vendor/fbtransform/visitors.js</a></p>
+
+<p><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/arrow_functions">アロー関数</a>や<a href="http://tc39wiki.calculist.org/es6/template-strings/">テンプレートリテラル</a>は便利なのでぜひお使いください。</p>
+
+<h2 id="所感">所感</h2>
+
+<p>簡単に導入できるのはいいんですがやっぱり<code>require</code>が使いたくなってきますね。
+<a href="https://github.com/visionmedia/superagent">superagent</a>なんかは<code>require</code>できないと使えないです。</p>
+
+<p>ここあたりのJavascriptライブラリのベストプラクティスが分からなくていつも困ってます。</p>
+
+<p>今思っているのはGuardから<a href="https://github.com/substack/watchify">watchify</a>を呼び出すのが汎用的な解決なんじゃないかなってことです。試してないですが。</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:uzimith.x9@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/uzimith" target="_blank">Twitter</a>
+			
+			<a href="https://github.com/uzimith/" target="_blank">GitHub</a>
+			
+		</div>
+		<div class="copyright">Copyright &copy; uzimith All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

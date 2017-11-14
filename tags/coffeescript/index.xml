@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coffeescript on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/coffeescript/</link>
+    <description>Recent content in Coffeescript on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Fri, 13 Feb 2015 21:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/coffeescript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>React.jsをCoffeeScriptとjadeで書く</title>
+      <link>https://uzimith.net/posts/2015/02/13/react-jade-coffee/</link>
+      <pubDate>Fri, 13 Feb 2015 21:00:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/13/react-jade-coffee/</guid>
+      <description>はじめに  React v0.13.0 Beta 1 | React  React.Componentを使うと生のJSのclass形式でReact Componentを定義できる  reactjs - react-jadeでjadeテンプレートから仮想DOMを出力する - Qiita  JSXのXの部分をjadeで書けるようにするライブラリ (Jade -&amp;gt; React VDOM)   ここあたりの記事を読んでRiot.jsなら素でできるCoffeeScriptとJadeの組み合わせがReactでも出来そうだと気づいたので試行錯誤中、 よさ気な書き方を見つけた話です。
+結論 こうです。
+https://gist.github.com/uzimith/145a0cf8e342dc46ac96
+React = require(&amp;#39;react&amp;#39;) jade = require(&amp;#39;react-jade&amp;#39;) _ = require(&amp;#39;lodash&amp;#39;) class Counter extends React.Component constructor: -&amp;gt; @state =  count: 0 tick: =&amp;gt; @setState count: @state.count + 1 render: =&amp;gt; jade.compile(&amp;#34;&amp;#34;&amp;#34; #counter span Count : button(onClick=tick)= count &amp;#34;&amp;#34;&amp;#34;)(_.assign {}, @, @props, @state) React.</description>
+    </item>
+    
+  </channel>
+</rss>

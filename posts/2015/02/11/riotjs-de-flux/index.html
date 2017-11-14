@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.30.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Future [ _ ]">
+<title>Riot.jsでFluxのデモ実装した。 - Future [ _ ]</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/picture.png" width="60" height="60" alt="Future [ _ ]"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Riot.jsでFluxのデモ実装した。</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-02-11">February 11, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<p>フロントエンド開発でコンポーネント指向で書きたいのは間違いないんですが、
+Reactは簡単な事をするのにも大量のコードを必要として手軽に書くのには辛いライブラリだと思っていたところ、
+Qiitaで<a href="https://muut.com/riotjs/">よさ気なライブラリ</a>が話題になってました。</p>
+
+<ul>
+<li><a href="http://qiita.com/cognitom/items/fb1295f3f93911e9e92d">Riot.js 2.0 を触ってみた — まだReactで消耗しているの? - Qiita</a></li>
+<li><a href="http://qiita.com/jgs/items/afa7bca6d4d88812b7e4">Riotjsのいいところ - Qiita</a></li>
+</ul>
+
+<p>もともと<a href="https://github.com/facebook/flux">flux</a>のデモコードがまったく理解できなくて悩んでいたところだったので2つのデモを実装しました。</p>
+
+<ul>
+<li><a href="http://uzimith.github.io/flux-practice/todo/">Todo</a></li>
+<li><a href="http://uzimith.github.io/flux-practice/chat/">Chat</a></li>
+</ul>
+
+<p><a href="https://github.com/uzimith/flux-practice">https://github.com/uzimith/flux-practice</a></p>
+
+<h2 id="fluxについて">Fluxについて</h2>
+
+<p>fluxのコンセプトについては<a href="http://facebook.github.io/flux/docs/overview.html">公式サイト</a>読んでても全く理解できなかったので、下のサイトを見て覚えました。</p>
+
+<ul>
+<li><a href="http://saneyukis.hatenablog.com/entry/2014/09/26/174750">Fluxアーキテクチャの覚え書きを書いた - snyk_s log</a></li>
+<li><a href="http://saneyukis.hatenablog.com/entry/2014/12/24/014421">Fluxとはなんだったのか + misc at 2014 - snyk_s log</a></li>
+<li><a href="http://jonathancreamer.com/what-the-flux/">What the flux?</a></li>
+</ul>
+
+<p>Actionが(ユーザーの)動作、DispatcherがObserver、StoreがModelでAction -&gt; Dispatcher -&gt; Store -&gt; Viewの一方通行でデータが動くと思えば大体合ってる気がします。</p>
+
+<p>しかし、いまだにWEB APIがActionCreaterから呼び出される利点が未だに分かってないです。Storeで隠蔽してもいいと思うんですが。
+複数のStoreを叩く必要があるAPI呼び出しを書く際に困らない、のかなといったところ。</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:uzimith.x9@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/uzimith" target="_blank">Twitter</a>
+			
+			<a href="https://github.com/uzimith/" target="_blank">GitHub</a>
+			
+		</div>
+		<div class="copyright">Copyright &copy; uzimith All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

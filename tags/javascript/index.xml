@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/javascript/</link>
+    <description>Recent content in Javascript on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Mon, 02 Feb 2015 01:30:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>jspmって遅い？</title>
+      <link>https://uzimith.net/posts/2015/02/02/jspm-is-slow/</link>
+      <pubDate>Mon, 02 Feb 2015 01:30:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/02/jspm-is-slow/</guid>
+      <description>jspmについて みなさんjspmってご存知ですか。 自分はQiitaの記事で知ったんですけど。
+jspm で快適 javascript 生活（クライアントサイド JS の依存管理決定版） - Qiita
+ES6 module loaderを利用してES6のimport文で前もってダウンロードしていたパッケージを読み込む仕組みになってるみたいです。依存も解決してくれるし特にnpmでもgithubでもbowerでもインストールできるのが明らかな優位な点っぽいです。
+importって速度的に大丈夫なの？ jspm initってやるとconfig.jsとes6-module-loader.jsとかが入ったjspm_packagesのフォルダが生成されるんですが、そんないろんなファイルをインポートして遅くならないかなって 思いjspm slowとかでぐぐてみたんですけど特に計測してるサイトとか無かったのでまあ問題ないものかなとReactを書き始めてみました。 すると表示が明らかに待たされて違和感バリバリだったのでwatchifyでも変換したファイルを読み込む場合とくらべてみました。
+jspmの場合   https://github.com/uzimith/flux-todo-practice/tree/692aa4eb33afd1fd372d51da10b517db4384d0d7
+1.30 s
+watchifyの場合   https://github.com/uzimith/flux-todo-practice/tree/4d2bc63b8026cdc42ebb5d2bac99733eecb188b9#
+275 ms
+さすがに文字を出すだけでこの速度になるようでは実用性に欠けるのではないかと思っていたところProdoction環境用のファイル生成法がありました。 jspm bundleしてbuild.jsを作って読み込ませるといいらしい。
+  324 msと、かなり早くなりました。とはいえwatchifyは250ms前後で安定してるのでこのコードの場合はwatchifyの生成するコードの方が若干速いです。
+所感 jspmでもbundleすれば十分速度が出るっぽいです。実はトップページを目を通せばひと目でわかることなんですが。
+For production, optimize into a bundle, layered bundles or a self-executing bundle with a single command.  とはいえ自分的には開発中レンダリングが遅いほうが苦になるのが目に見えてるし、JSXで書くためにパスの指定が.jsx!になるとださいし、 6to5ify,reactify,uglifyなどwatchifyで機能性は十分、むしろ高いとjspmを使う理由は見当たらないといったところです。
+ビルドのほうが時間がかかるということならjspmのほうがいいと思いますが、大規模なプロジェクトとかだとそうなんですかね？</description>
+    </item>
+    
+    <item>
+      <title>Oboe.jsのデモ</title>
+      <link>https://uzimith.net/posts/2015/01/11/oboe-sample/</link>
+      <pubDate>Wed, 14 Jan 2015 23:38:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/01/11/oboe-sample/</guid>
+      <description>今日はOboe.jsを触っていたのでその記事です。
+Oboe.jsとは JSONをストリーミングで読み込むライブラリです。通常のAJAXだとJSONをすべて読み込むまで待機するため 大きいファイルを扱ったり、モバイル環境のような低速環境だったりすると読み込み完了までなんの情報も得られない という欠点を改善してくれます。
+とはいえ、いまいちピンとこないのでデモサイト作って動作確認してました。
+コード例 とりあえずExampleを見る。
+Oboe.jsの目的ではないが、AJAXライブラリとしても使える。
+oboe(&amp;#39;/myapp/things.json&amp;#39;) .done(function(things) { // すべて読み込みが完了した場合  }) .fail(function() { // なんらかのエラーが発生した場合  }); ストリーミングで受け取るには以下
+こういうJSONが来るとして
+{ &amp;#34;foods&amp;#34;: [ {&amp;#34;name&amp;#34;:&amp;#34;aubergine&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;purple&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;apple&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;red&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;nuts&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;brown&amp;#34;} ], &amp;#34;badThings&amp;#34;: [ {&amp;#34;name&amp;#34;:&amp;#34;poison&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;pink&amp;#34;}, {&amp;#34;name&amp;#34;:&amp;#34;broken_glass&amp;#34;, &amp;#34;colour&amp;#34;:&amp;#34;green&amp;#34;} ] } oboe.node(&amp;lsquo;pattern&amp;rsquo;, callback)を指定する。
+oboe(&amp;#39;/myapp/things.json&amp;#39;) .node(&amp;#39;foods.*&amp;#39;, function( foodThing ){ // &amp;#39;foods.*&amp;#39;に該当する新しい要素を見つけるとこのコールバックが呼ばれる。  console.log( &amp;#39;Go eat some&amp;#39;, foodThing.name); }) .node(&amp;#39;badThings.*&amp;#39;, function( badThing ){ console.log( &amp;#39;Stay away from&amp;#39;, badThing.name); }) .done(function(things){ console.</description>
+    </item>
+    
+  </channel>
+</rss>

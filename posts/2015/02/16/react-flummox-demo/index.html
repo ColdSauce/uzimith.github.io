@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.30.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Future [ _ ]">
+<title>Javscriptのクラス対応(=React 0.13対応)のFlummoxを試してみた - Future [ _ ]</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/picture.png" width="60" height="60" alt="Future [ _ ]"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">Javscriptのクラス対応(=React 0.13対応)のFlummoxを試してみた</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-02-16">February 16, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<p><a href="http://uzimith.github.io/2015/02/13/react-jade-coffee/">前回の記事</a>で快適なReact環境を手に入れることが出来た私ですが、Fluxを導入しようとして壁にぶち当たりました。</p>
+
+<p><a href="http://amagitakayosi.hatenablog.com/entry/fluxxor-introduction">Fluxxor</a>などの有名なFlux実装などは
+StoreとComponentの紐付けに従来のMixinを利用することが前提となっていますが、ReactにおいてMixinはReact.Componentを利用していると使えません。</p>
+
+<p>ちょっとGithubを見ていたら<a href="https://github.com/acdlite/flummox">acdlite/flummox</a>が特徴にReact 0.13対応だと書いてあったのでとりあえずTodoを実装しました。</p>
+
+<ul>
+<li><a href="http://uzimith.github.io/flux-practice/react/">Todoデモ</a>
+
+<ul>
+<li><a href="https://github.com/uzimith/flux-practice/tree/gh-pages/react">ソースコード</a></li>
+</ul></li>
+</ul>
+
+<h2 id="簡単な説明">簡単な説明</h2>
+
+<h3 id="actions">Actions</h3>
+<div class="highlight"><pre class="chroma"><code class="language-coffee" data-lang="coffee"><span class="k">class</span> <span class="nx">TodoActions</span> <span class="k">extends</span> <span class="nx">Actions</span>
+  <span class="nv">createTodo: </span><span class="nf">(text) -&gt;</span>
+    <span class="nv">id = </span><span class="p">(</span><span class="o">+</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">999999</span><span class="p">)).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nv">id: </span><span class="nx">id</span>
+      <span class="nv">text: </span><span class="nx">text</span>
+      <span class="nv">complete: </span><span class="kc">false</span>
+    <span class="p">}</span></code></pre></div>
+<p>関数の返り値が自動的にDispatcherに送られる。(undefinedを送るとDispatcherに無視されるので注意)</p>
+
+<h3 id="store">Store</h3>
+<div class="highlight"><pre class="chroma"><code class="language-coffee" data-lang="coffee"><span class="k">class</span> <span class="nx">TodoStore</span> <span class="k">extends</span> <span class="nx">Store</span>
+  <span class="nv">constructor: </span><span class="nf">(flux) -&gt;</span>
+    <span class="k">super</span>
+    <span class="nv">todoActions = </span><span class="nx">flux</span><span class="p">.</span><span class="nx">getActionIds</span><span class="p">(</span><span class="s">&#39;todo&#39;</span><span class="p">)</span>
+    <span class="nx">@register</span><span class="p">(</span><span class="nx">todoActions</span><span class="p">.</span><span class="nx">createTodo</span><span class="p">,</span> <span class="nx">@handleNewTodo</span><span class="p">)</span>
+    <span class="vi">@state = </span><span class="p">{</span>
+      <span class="nv">todos: </span><span class="p">{</span>
+        <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nv">id: </span><span class="mi">1</span>
+          <span class="nv">complete: </span><span class="kc">true</span>
+          <span class="nv">text: </span><span class="s">&#34;hoge&#34;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+  <span class="nv">handleNewTodo: </span><span class="nf">(todo) =&gt;</span>
+    <span class="nv">todos = </span><span class="nx">@state</span><span class="p">.</span><span class="nx">todos</span>
+    <span class="nx">todos</span><span class="p">[</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">todo</span>
+    <span class="nx">@setState</span> <span class="nv">todos: </span><span class="nx">todos</span></code></pre></div>
+<p>React.Componentっぽく書ける。setState()すると自動的にDispatcherにemitされ紐付いたComponentが更新される。</p>
+
+<p>@register(actionId, handler)でDispatcherにhandlerが登録される。
+ActionsIdが示すアクションの返り値がDispatcherを介してhandlerの引数となりhandlerが実行される。</p>
+
+<p>handlerは関数だったらなんでもいいらしいが、普通にメソッドを渡すといい。</p>
+
+<h3 id="flux">Flux</h3>
+<div class="highlight"><pre class="chroma"><code class="language-coffee" data-lang="coffee"><span class="k">class</span> <span class="nx">AppFlux</span> <span class="k">extends</span> <span class="nx">Flux</span>
+  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
+    <span class="k">super</span>
+    <span class="nx">@createActions</span><span class="p">(</span><span class="s">&#39;todo&#39;</span><span class="p">,</span> <span class="nx">TodoActions</span><span class="p">)</span>
+    <span class="nx">@createStore</span><span class="p">(</span><span class="s">&#39;todo&#39;</span><span class="p">,</span> <span class="nx">TodoStore</span><span class="p">,</span> <span class="nx">@</span><span class="p">)</span></code></pre></div>
+<p>createActions(key, ActionsClass, &hellip;args)とcreateStore(key, StoreClass, &hellip;args)でActionsとStoreが登録できる。argsはそれぞれcreateするときの
+引数になる(この場合Storeの方はnew TodoStore(this)となる)</p>
+
+<p>このインスタンスのメソッドgetActions(key)やgetStore(key)を呼び出すとActionsやStoreのインスタンスが返ってくる。</p>
+
+<h3 id="component">Component</h3>
+
+<p>あとは<code>flux = new AppFlux()</code>してComponentを書いていく。</p>
+<div class="highlight"><pre class="chroma"><code class="language-coffee" data-lang="coffee"><span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span><span class="p">(</span><span class="nx">Application</span><span class="p">)(</span><span class="nv">flux: </span><span class="nx">flux</span><span class="p">),</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s">&#39;container&#39;</span><span class="p">))</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-coffee" data-lang="coffee"><span class="k">class</span> <span class="nx">Application</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span>
+  <span class="nv">render: </span><span class="nf">=&gt;</span>
+    <span class="nx">jade</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="s">&#34;&#34;&#34;
+</span><span class="s">      FluxComponent(flux=flux connectToStores=[&#39;todo&#39;])
+</span><span class="s">        TodoPanel
+</span><span class="s">    &#34;&#34;&#34;</span><span class="p">)(</span><span class="nx">_</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span><span class="nx">@</span><span class="p">,</span> <span class="nx">@props</span><span class="p">,</span> <span class="nx">@state</span><span class="p">))</span></code></pre></div>
+<p><code>FluxContainer flux=flux connectToStores=[key]</code>とするとStoreの@stateがFluxComponentの@propsになる。だから、中のComponentから参照できる。</p>
+
+<p>(この理解が微妙に適当。親のpropsをなんで参照できるのか分かってないまま書いた)</p>
+
+<p>FluxComponentは別に配列じゃなくてもいい。</p>
+<div class="highlight"><pre class="chroma"><code class="language-coffee" data-lang="coffee"><span class="nx">FluxComponent</span> <span class="nx">connectToStores</span><span class="o">=</span><span class="p">{{</span>
+  <span class="nv">posts: </span><span class="nx">store</span> <span class="nf">=&gt;</span> <span class="p">({</span>
+    <span class="nv">post: </span><span class="nx">store</span><span class="p">.</span><span class="nx">getPost</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span>
+  <span class="p">}),</span>
+  <span class="nv">comments: </span><span class="nx">store</span> <span class="nf">=&gt;</span> <span class="p">({</span>
+    <span class="nv">comments: </span><span class="nx">store</span><span class="p">.</span><span class="nx">getCommentsForPost</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">post</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span>
+  <span class="p">})</span>
+<span class="p">}}</span></code></pre></div>
+<p>Actionを呼び出すときは<code>@props.flux.getActions(&quot;todo&quot;).createTodo(@state.newTodoText)</code>といった感じ。</p>
+
+<h2 id="所感">所感</h2>
+
+<p>こんな感じにFLux書きたかった。</p>
+
+<p>Facebookのfluxは初見の私には魔法の言葉が飛び交っているようにしか見えなかったです。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://github.com/acdlite/flummox/blob/master/docs/quick-start.md">flummox/quick-start.md at master · acdlite/flummox</a></li>
+<li><a href="https://github.com/acdlite/flummox/blob/master/docs/react-integration.md">flummox/react-integration.md at master · acdlite/flummox</a></li>
+</ul>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:uzimith.x9@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/uzimith" target="_blank">Twitter</a>
+			
+			<a href="https://github.com/uzimith/" target="_blank">GitHub</a>
+			
+		</div>
+		<div class="copyright">Copyright &copy; uzimith All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

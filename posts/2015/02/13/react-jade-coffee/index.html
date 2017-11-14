@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.30.2" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Future [ _ ]">
+<title>React.jsをCoffeeScriptとjadeで書く - Future [ _ ]</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/picture.png" width="60" height="60" alt="Future [ _ ]"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">React.jsをCoffeeScriptとjadeで書く</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2015-02-13">February 13, 2015</time></span>
+			<section itemprop="entry-text">
+				
+
+<h1 id="はじめに">はじめに</h1>
+
+<ul>
+<li><a href="http://facebook.github.io/react/blog/2015/01/27/react-v0.13.0-beta-1.html">React v0.13.0 Beta 1 | React</a>
+
+<ul>
+<li>React.Componentを使うと生のJSのclass形式でReact Componentを定義できる</li>
+</ul></li>
+<li><a href="http://qiita.com/mizchi/items/4e17b54cd9cc70d747cc">reactjs - react-jadeでjadeテンプレートから仮想DOMを出力する - Qiita</a>
+
+<ul>
+<li>JSXのXの部分をjadeで書けるようにするライブラリ (Jade -&gt; React VDOM)</li>
+</ul></li>
+</ul>
+
+<p>ここあたりの記事を読んでRiot.jsなら素でできるCoffeeScriptとJadeの組み合わせがReactでも出来そうだと気づいたので試行錯誤中、
+よさ気な書き方を見つけた話です。</p>
+
+<h1 id="結論">結論</h1>
+
+<p>こうです。</p>
+
+<p><a href="https://gist.github.com/uzimith/145a0cf8e342dc46ac96">https://gist.github.com/uzimith/145a0cf8e342dc46ac96</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-coffee" data-lang="coffee"><span class="nv">React = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;react&#39;</span><span class="p">)</span>
+<span class="nv">jade = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;react-jade&#39;</span><span class="p">)</span>
+<span class="nv">_ = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;lodash&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nx">Counter</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span>
+  <span class="nv">constructor: </span><span class="nf">-&gt;</span>
+    <span class="vi">@state =
+</span><span class="vi"></span>      <span class="nv">count: </span><span class="mi">0</span>
+  <span class="nv">tick: </span><span class="nf">=&gt;</span>
+    <span class="nx">@setState</span> <span class="nv">count: </span><span class="nx">@state</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="nv">render: </span><span class="nf">=&gt;</span>
+    <span class="nx">jade</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="s">&#34;&#34;&#34;
+</span><span class="s">      #counter
+</span><span class="s">        span Count :
+</span><span class="s">        button(onClick=tick)= count
+</span><span class="s">    &#34;&#34;&#34;</span><span class="p">)(</span><span class="nx">_</span><span class="p">.</span><span class="nx">assign</span> <span class="p">{},</span> <span class="nx">@</span><span class="p">,</span> <span class="nx">@props</span><span class="p">,</span> <span class="nx">@state</span><span class="p">)</span>
+
+<span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">React</span><span class="p">.</span><span class="nx">createFactory</span><span class="p">(</span><span class="nx">Counter</span><span class="p">)(),</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s">&#39;container&#39;</span><span class="p">))</span></code></pre></div>
+<p>React.jsの俺的主なキツさの原因である今どき生HTML, なんかめっちゃ多いthis, React.CreateComponet, getInitialStateとかいう意味不明なメソッド等々が
+まとめて解決されて良さそうです。</p>
+
+<h3 id="コメント">コメント</h3>
+
+<p>Qiitaを見ていたら@mizchiさんがreact-jadeを使ってるとのことで下記のプロジェクトを見てたら
+<code>template(_.extend {}, @, @props, @state)</code>とjadeテンプレートを呼び出していました。</p>
+
+<p>thisに定義されている関数とpropsとstateの値をマージしてテンプレートに渡す手法がまさに自分の求めていたものでさすが利用者は違いますね。</p>
+
+<p><a href="http://mizchi.hatenablog.com/entry/2015/02/02/004728">俺専用ReactのSVGスケッチ環境作った - mizchi&rsquo;s blog</a></p>
+
+<p>react-jadeにはjade.compileFile()といった関数もあるのでいざとなったらテンプレートのファイル分割も簡単にできるのも利点になりそうです。</p>
+
+<h2 id="browserifyで使ってるライブラリ">browserifyで使ってるライブラリ</h2>
+
+<ul>
+<li><a href="https://github.com/jadejs/react-jade">jadejs/react-jade</a></li>
+<li><a href="https://github.com/jnordberg/coffeeify">jnordberg/coffeeify</a></li>
+</ul>
+
+<p>まだreact-jadeがreact v0.13 betaに対応していないので依存関係削除してインストールしてますが
+多分問題無いと思うのでリリースされたら対応されるんじゃないでしょうか。</p>
+
+<h2 id="所感">所感</h2>
+
+<p>React.CreateElementやReact.DOMなどを生で駆使するとか<a href="http://qiita.com/mizchi/items/811fb25372ce2f12783e">ラッパーを書いて頑張る</a>とか考えたんですが
+他で定義したコンポーネントがタグを書くだけで呼び出せるあたり、この手法が一番良さそうです。</p>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:uzimith.x9@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/uzimith" target="_blank">Twitter</a>
+			
+			<a href="https://github.com/uzimith/" target="_blank">GitHub</a>
+			
+		</div>
+		<div class="copyright">Copyright &copy; uzimith All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

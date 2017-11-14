@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Riotjs on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/riotjs/</link>
+    <description>Recent content in Riotjs on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Wed, 11 Feb 2015 22:32:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/riotjs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Riot.jsでFluxのデモ実装した。</title>
+      <link>https://uzimith.net/posts/2015/02/11/riotjs-de-flux/</link>
+      <pubDate>Wed, 11 Feb 2015 22:32:00 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2015/02/11/riotjs-de-flux/</guid>
+      <description>フロントエンド開発でコンポーネント指向で書きたいのは間違いないんですが、 Reactは簡単な事をするのにも大量のコードを必要として手軽に書くのには辛いライブラリだと思っていたところ、 Qiitaでよさ気なライブラリが話題になってました。
+ Riot.js 2.0 を触ってみた — まだReactで消耗しているの? - Qiita Riotjsのいいところ - Qiita  もともとfluxのデモコードがまったく理解できなくて悩んでいたところだったので2つのデモを実装しました。
+ Todo Chat  https://github.com/uzimith/flux-practice
+Fluxについて fluxのコンセプトについては公式サイト読んでても全く理解できなかったので、下のサイトを見て覚えました。
+ Fluxアーキテクチャの覚え書きを書いた - snyk_s log Fluxとはなんだったのか + misc at 2014 - snyk_s log What the flux?  Actionが(ユーザーの)動作、DispatcherがObserver、StoreがModelでAction -&amp;gt; Dispatcher -&amp;gt; Store -&amp;gt; Viewの一方通行でデータが動くと思えば大体合ってる気がします。
+しかし、いまだにWEB APIがActionCreaterから呼び出される利点が未だに分かってないです。Storeで隠蔽してもいいと思うんですが。 複数のStoreを叩く必要があるAPI呼び出しを書く際に困らない、のかなといったところ。</description>
+    </item>
+    
+  </channel>
+</rss>
