@@ -1,0 +1,15 @@
+baseURL = "https://uzimith.net/"
+languageCode = "ja"
+title = "Future [ _ ]"
+theme = "hugo-zen"
+pygmentsUseClasses = true
+pygmentsCodefences = true
+author = "rakuishi"
+
+[params]
+  logo      = "/images/picture.png"
+  copyright = "uzimith All rights reserved."
+  twitter   = "https://twitter.com/uzimith"
+  github    = "https://github.com/uzimith/"
+  email     = "uzimith.x9@gmail.com"
+  analytics = "UA-58170674-1"
