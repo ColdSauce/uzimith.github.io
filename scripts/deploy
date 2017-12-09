@@ -3,5 +3,5 @@
 ./scripts/build
 cd public
 git add -A
-git commit -m 'deploy (date +"%Y-%m-%d %H:%M")'
+git commit -m "deploy $(date +'%Y-%m-%d %H:%M')"
 git push
