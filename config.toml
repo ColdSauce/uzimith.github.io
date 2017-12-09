@@ -5,6 +5,7 @@ theme = "hugo-zen"
 pygmentsUseClasses = true
 pygmentsCodefences = true
 author = "rakuishi"
+googleAnalytics = "UA-58170674-1"
 
 [params]
   logo      = "/images/picture.png"
@@ -12,4 +13,3 @@ author = "rakuishi"
   twitter   = "https://twitter.com/uzimith"
   github    = "https://github.com/uzimith/"
   email     = "uzimith.x9@gmail.com"
-  analytics = "UA-58170674-1"
