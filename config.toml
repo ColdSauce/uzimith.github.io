@@ -5,6 +5,7 @@ theme = "hugo-zen"
 pygmentsUseClasses = true
 pygmentsCodefences = true
 author = "rakuishi"
+staticDir = ["static", "content"]
 
 [params]
   logo      = "/images/picture.png"

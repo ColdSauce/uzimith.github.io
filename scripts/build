@@ -1,0 +1,4 @@
+#!/bin/bash
+
+git clone -b master git@github.com:uzimith/uzimith.github.io.git public
+hugo
