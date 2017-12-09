@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Alfred on Future [ _ ]</title>
+    <link>https://uzimith.net/tags/alfred/</link>
+    <description>Recent content in Alfred on Future [ _ ]</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>uzimith All rights reserved.</copyright>
+    <lastBuildDate>Sat, 09 Dec 2017 18:36:19 +0900</lastBuildDate>
+    
+	<atom:link href="https://uzimith.net/tags/alfred/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>jqでAlfred Workflowを作る</title>
+      <link>https://uzimith.net/posts/2017/12/04/alfred_worklfow/</link>
+      <pubDate>Sat, 09 Dec 2017 18:36:19 +0900</pubDate>
+      
+      <guid>https://uzimith.net/posts/2017/12/04/alfred_worklfow/</guid>
+      <description>AlfredにはWorkflowというものがあってPowerpackを購入したユーザーが使える。
+いろいろあるのでAwsome Workflowのリンクを貼っておく。
+とてもいいアプリなので35ユーロになるけど、Mega Supppoterを購入することをおすすめする。Free lifetime Upgrades のオプションになる。
+Workflowは、コードを見るとPHP実装だったり、Ruby実装だったりで作るのがめんどくさそうにみえる。
+今回は、そういった言語を使わなくてもスクリプトを組み合わせるだけでAPIを使ったWorkflowをScript Filter JSON Formatを使うことで簡単に作った話をしようと思う。
+Script Filterは標準出力に以下のような出力を行なうだけでいい。
+JSON サンプル { &amp;#34;items&amp;#34;: [ { &amp;#34;uid&amp;#34;: &amp;#34;desktop&amp;#34;, &amp;#34;type&amp;#34;: &amp;#34;file&amp;#34;, &amp;#34;title&amp;#34;: &amp;#34;Desktop&amp;#34;, &amp;#34;subtitle&amp;#34;: &amp;#34;~/Desktop&amp;#34;, &amp;#34;arg&amp;#34;: &amp;#34;~/Desktop&amp;#34;, &amp;#34;autocomplete&amp;#34;: &amp;#34;Desktop&amp;#34;, &amp;#34;icon&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;fileicon&amp;#34;, &amp;#34;path&amp;#34;: &amp;#34;~/Desktop&amp;#34; }, &amp;#34;mods&amp;#34;: { &amp;#34;alt&amp;#34;: { &amp;#34;valid&amp;#34;: true, &amp;#34;arg&amp;#34;: &amp;#34;https://alfredapp.com/powerpack&amp;#34;, &amp;#34;subtitle&amp;#34;: &amp;#34;https://www.alfredapp.com/powerpack/&amp;#34; }, &amp;#34;cmd&amp;#34;: { &amp;#34;valid&amp;#34;: true, &amp;#34;arg&amp;#34;: &amp;#34;https://alfredapp.com/powerpack/buy/&amp;#34;, &amp;#34;subtitle&amp;#34;: &amp;#34;https://www.alfredapp.com/powerpack/buy/&amp;#34; } } } ] } 属性    key type description     uid string alfredのソート機能のために振るunique id   type string fileをしているとAlfredにファイルとして扱われる（「Finderで開く」アクションが有効になるなど）   title string リストの一行目   subtitle string リストの二行目   arg string 次のブロックへ渡る値（引数）   autocomplete string オートコンプリート（Tabキー）を押したときに補完されるテキスト   icon object 画像　※ pathにはURLを指定できない   valid boolean Enterキーをおした時に反応するか   mods obejct 指定したキーをおした時に valid , arg , subtitle を切り替えれる    試しに動かしてみる。 Script Filterを作る。</description>
+    </item>
+    
+  </channel>
+</rss>

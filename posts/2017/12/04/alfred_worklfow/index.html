@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="Hugo 0.31.1" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<link rel="stylesheet" href="/css/normalize.css">
+<link rel="stylesheet" href="/css/skeleton.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Future [ _ ]">
+<title>jqでAlfred Workflowを作る - Future [ _ ]</title>
+</head>
+<body>
+
+<div class="container">
+
+	<header role="banner">
+		<div class="header-logo">
+			<a href="/"><img src="/images/picture.png" width="60" height="60" alt="Future [ _ ]"></a>
+		</div>
+		
+	</header>
+
+
+	<main role="main">
+		<article itemscope itemtype="http://schema.org/BlogPosting">
+			<h1 class="entry-title" itemprop="headline">jqでAlfred Workflowを作る</h1>
+			<span class="entry-meta"><time itemprop="datePublished" datetime="2017-12-09">December 09, 2017</time></span>
+			<section itemprop="entry-text">
+				
+
+<p>AlfredにはWorkflowというものがあって<a href="https://www.alfredapp.com/powerpack/buy/">Powerpack</a>を購入したユーザーが使える。</p>
+
+<p>いろいろあるので<a href="https://github.com/derimagia/awesome-alfred-workflows">Awsome Workflow</a>のリンクを貼っておく。</p>
+
+<p>とてもいいアプリなので35ユーロになるけど、Mega Supppoterを購入することをおすすめする。<code>Free lifetime Upgrades</code> のオプションになる。</p>
+
+<p>Workflowは、コードを見ると<a href="https://github.com/willfarrell/alfred-caniuse-workflow/blob/master/src/caniuse.php">PHP実装</a>だったり、<a href="https://github.com/carlosgaldino/alfred-emoji-workflow/blob/master/emoji.rb">Ruby実装</a>だったりで作るのがめんどくさそうにみえる。</p>
+
+<p>今回は、そういった言語を使わなくてもスクリプトを組み合わせるだけでAPIを使ったWorkflowを<a href="https://www.alfredapp.com/help/workflows/inputs/script-filter/json/">Script Filter JSON Format</a>を使うことで簡単に作った話をしようと思う。</p>
+
+<p>Script Filterは標準出力に以下のような出力を行なうだけでいい。</p>
+
+<h2 id="json">JSON</h2>
+
+<h3 id="サンプル">サンプル</h3>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;items&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;uid&#34;</span><span class="p">:</span> <span class="s2">&#34;desktop&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;file&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Desktop&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;subtitle&#34;</span><span class="p">:</span> <span class="s2">&#34;~/Desktop&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;arg&#34;</span><span class="p">:</span> <span class="s2">&#34;~/Desktop&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;autocomplete&#34;</span><span class="p">:</span> <span class="s2">&#34;Desktop&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;icon&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;fileicon&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;~/Desktop&#34;</span>
+      <span class="p">},</span>
+      <span class="nt">&#34;mods&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;alt&#34;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&#34;valid&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nt">&#34;arg&#34;</span><span class="p">:</span> <span class="s2">&#34;https://alfredapp.com/powerpack&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;subtitle&#34;</span><span class="p">:</span> <span class="s2">&#34;https://www.alfredapp.com/powerpack/&#34;</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;cmd&#34;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&#34;valid&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nt">&#34;arg&#34;</span><span class="p">:</span> <span class="s2">&#34;https://alfredapp.com/powerpack/buy/&#34;</span><span class="p">,</span>
+          <span class="nt">&#34;subtitle&#34;</span><span class="p">:</span> <span class="s2">&#34;https://www.alfredapp.com/powerpack/buy/&#34;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
+<h2 id="属性">属性</h2>
+
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>uid</td>
+<td>string</td>
+<td>alfredのソート機能のために振るunique id</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td>string</td>
+<td>fileをしているとAlfredにファイルとして扱われる（「Finderで開く」アクションが有効になるなど）</td>
+</tr>
+
+<tr>
+<td>title</td>
+<td>string</td>
+<td>リストの一行目</td>
+</tr>
+
+<tr>
+<td>subtitle</td>
+<td>string</td>
+<td>リストの二行目</td>
+</tr>
+
+<tr>
+<td>arg</td>
+<td>string</td>
+<td>次のブロックへ渡る値（引数）</td>
+</tr>
+
+<tr>
+<td>autocomplete</td>
+<td>string</td>
+<td>オートコンプリート（Tabキー）を押したときに補完されるテキスト</td>
+</tr>
+
+<tr>
+<td>icon</td>
+<td>object</td>
+<td>画像　※ pathにはURLを指定できない</td>
+</tr>
+
+<tr>
+<td>valid</td>
+<td>boolean</td>
+<td>Enterキーをおした時に反応するか</td>
+</tr>
+
+<tr>
+<td>mods</td>
+<td>obejct</td>
+<td>指定したキーをおした時に <code>valid</code> , <code>arg</code> , <code>subtitle</code> を切り替えれる</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="試しに動かしてみる">試しに動かしてみる。</h3>
+
+<p>Script Filterを作る。</p>
+
+<p><img src="resources/B07905BD7FE1B3451B332EDF42996BFF.png" alt="Screen Shot" /></p>
+
+<p>スクリプトは標準出力に指定された形式のJSONを出力するだけでいい。とりあえず <code>echo '{sample json}'</code> といった感じ。</p>
+
+<p><img src="resources/8BD922ACF7F382D10D6FC67044433510.png" alt="Screen Shot" /></p>
+
+<p>Workflow全体はこんな感じになっているのが基本だと思う。</p>
+
+<p><img src="resources/CA62C2114AE29489A3D4DE875E924963.png" alt="Screen Shot 2017-12-09 at 16.19.43.png" /></p>
+
+<p>URLだったらブラウザで開き、それ以外だったら通知とともにクリップボードにはいる。</p>
+
+<p>それぞれのオブジェクトの設定は以下のような感じ</p>
+
+<h4 id="filter">Filter</h4>
+
+<p>URLではないフィルター: <code>{query}</code> matches regex <code>^(?!http)</code></p>
+
+<p><img src="resources/554B37B3895B848D5BCC84453BB8074C.png" alt="Screen Shot" /></p>
+
+<p>URL フィルター: <code>{query}</code> matches regex <code>^http</code></p>
+
+<p><img src="resources/630547CF3C6122ED897638B63934CA97.png" alt="Screen Shot" /></p>
+
+<h4 id="outputs">Outputs</h4>
+
+<p>通知の設定</p>
+
+<p><img src="resources/FBAB4F9C91BC2FDF1261C98001306469.png" alt="Screen Shot" /></p>
+
+<p>動作はこんな感じになる。</p>
+
+<p><img src="resources/1E8EA42839CD09FFAD38268F6CB62B8E.gif" alt="hoge.gif" /></p>
+
+<p>あとはいい感じのJSONをなにかしらで生成するといい。curlと<a href="https://stedolan.github.io/jq/">jq</a>が手軽に使えておすすめ。</p>
+
+<p>今回は天気予報 Workflowsを作ろうと思うので<a href="https://openweathermap.org/">Open Weather Map</a>のAPIを叩いてみた。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ curl -s <span class="s2">&#34;http://api.openweathermap.org/data/2.5/forecast?q=Tokyo&amp;units=metric&amp;&amp;lang=ja&amp;appid=[appid]&#34;</span> <span class="p">|</span> jq . &gt; tenki.json</code></pre></div>
+<p>このJSONをさきほどのJSONに合うようにjqで整形する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">$</span> <span class="err">cat</span> <span class="err">tenki.json</span> <span class="err">|</span> <span class="err">/usr/local/bin/jq</span> <span class="err">&#39;</span><span class="p">{</span>
+    <span class="err">items:</span> <span class="err">(</span>
+        <span class="err">.list</span> <span class="err">|</span> <span class="err">map({</span>
+            <span class="err">title:</span> <span class="err">.dt_txt,</span>
+            <span class="err">subtitle:</span> <span class="nt">&#34;\(.weather[].description) \(if .rain == {} or .rain == null then 0 else .rain[&#34;</span><span class="mi">3</span><span class="err">h</span><span class="s2">&#34;] end)mm \(.main.temp)℃&#34;</span>
+        <span class="p">}</span><span class="err">)</span>
+    <span class="err">)</span>
+<span class="err">}&#39;</span>
+<span class="p">{</span>
+  <span class="nt">&#34;items&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;2017-12-09 09:00:00&#34;</span><span class="p">,</span>
+      <span class="nt">&#34;subtitle&#34;</span><span class="p">:</span> <span class="s2">&#34;晴天 0mm 4.7℃&#34;</span>
+    <span class="p">},</span>
+<span class="err">...</span></code></pre></div>
+<p>これをScript Filterのスクリプトにする。</p>
+
+<pre><code>curl -s &quot;http://api.openweathermap.org/data/2.5/forecast?q={query}&amp;units=metric&amp;&amp;lang=ja&amp;appid=[appid]&quot; | /usr/local/bin/jq '{
+    items: (
+        .list | map({
+            title: .dt_txt,
+            subtitle: &quot;\(.weather[].description) \(if .rain == {} or .rain == null then 0 else .rain[&quot;3h&quot;] end)mm \(.main.temp)℃&quot;
+        })
+    )
+}'
+</code></pre>
+
+<p>これで東京の天気を表示してみる。</p>
+
+<p><img src="resources/93B94519343B63BFA78E78B2EC5D5FE4.png" alt="Screen Shot" /></p>
+
+<p>今回作ったWorkflowはこちら。APIキーは<code>[appid]</code>のままなのでそのままでは動かない。</p>
+
+<p><a href="resources/616D77B6BEB7D2EB173BB2E9CDE8FC65.alfredworkflow">tenki.alfredworkflow</a></p>
+
+<p>すげーしょうもないサンプルコードになってしまったので、魅力が伝わらないかもしれない。
+自分は社内の管理画面を開くのが面倒だったのでそれを簡単にAlfred Workflow化したりして便利だった。</p>
+
+<h2 id="所感">所感</h2>
+
+<p>ビジュアルプログラミングだったの画像を貼る必要があり記事を書くのが億劫だった。ただ、すごく便利だと思うので、何かしら便利なWorkflowが作れたら公開してほしい。自分が使いたいので。</p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://qiita.com/takeshinoda@github/items/2dec7a72930ec1f658af">jq コマンドを使う日常のご紹介 - Qiita</a>
+
+<ul>
+<li>jqは便利</li>
+</ul></li>
+</ul>
+
+			</section>
+		</article>
+	</main>
+
+
+	<footer role="contentinfo">
+		<div class="hr"></div>
+		<div class="footer-link">
+			<a href="mailto:uzimith.x9@gmail.com" target="_blank">Email</a>
+			<a href="https://twitter.com/uzimith" target="_blank">Twitter</a>
+			
+			<a href="https://github.com/uzimith/" target="_blank">GitHub</a>
+			
+		</div>
+		<div class="copyright">Copyright &copy; uzimith All rights reserved.</div>
+	</footer>
+
+</div>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
